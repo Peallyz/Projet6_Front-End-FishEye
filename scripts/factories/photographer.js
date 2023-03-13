@@ -38,10 +38,36 @@ const photographerFactory = (data) => {
     return article;
   }
 
+  function getUserHeaderTextDOM() {
+    const description = document.createElement("div");
+    const title = document.createElement("h1");
+    title.innerText = name;
+    const locationPhotographer = document.createElement("p");
+    locationPhotographer.innerText = `${city}, ${country}`;
+    const taglineText = document.createElement("p");
+    taglineText.innerText = `${tagline}`;
+
+    description.appendChild(title);
+    description.appendChild(locationPhotographer);
+    description.appendChild(taglineText);
+
+    return description;
+  }
+
+  function getUserAvatarDOM() {
+    const avatar = document.createElement("img");
+    avatar.setAttribute("alt", name);
+    avatar.setAttribute("src", picture);
+
+    return avatar;
+  }
+
   return {
     name,
     picture,
     getUserCardDOM,
+    getUserHeaderTextDOM,
+    getUserAvatarDOM,
   };
 };
 
