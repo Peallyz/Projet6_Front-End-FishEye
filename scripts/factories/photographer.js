@@ -19,8 +19,22 @@ const photographerFactory = (data) => {
     link.appendChild(img);
     link.appendChild(h2);
 
-    article.appendChild(link);
+    // Create a block of text with location, tagline and price bellow link
 
+    const description = document.createElement("div");
+    const locationPhotographer = document.createElement("p");
+    locationPhotographer.innerText = `${city}, ${country}`;
+    const taglineText = document.createElement("p");
+    taglineText.innerText = `${tagline}`;
+    const priceText = document.createElement("p");
+    priceText.innerText = `${price}€/jour`;
+
+    description.appendChild(locationPhotographer);
+    description.appendChild(taglineText);
+    description.appendChild(priceText);
+
+    article.appendChild(link);
+    article.appendChild(description);
     return article;
   }
 
@@ -30,5 +44,15 @@ const photographerFactory = (data) => {
     getUserCardDOM,
   };
 };
+
+// const mediaFactory = (data) => {
+//   const { media } = data;
+
+//   function getUserAvatarDOM() {
+//     console.log(media);
+//   }
+
+//   return { getUserAvatarDOM };
+// };
 
 export { photographerFactory };
