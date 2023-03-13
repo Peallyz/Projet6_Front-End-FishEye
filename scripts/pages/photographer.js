@@ -27,6 +27,17 @@ async function getPhotographerData() {
   return data;
 }
 
+// Display photographer data on their page
+
+async function displayPhotographerData(photographerData) {
+  const photographersHeader = document.querySelector(".photograph-header");
+  const photographer = photographerFactory(photographerData);
+  const userHeaderTextDOM = photographer.getUserHeaderTextDOM();
+  photographersHeader.prepend(userHeaderTextDOM);
+  const userAvatarDOM = photographer.getUserAvatarDOM();
+  photographersHeader.appendChild(userAvatarDOM);
+}
+
 async function init() {
   // Récupère les datas des photographes
   const photographerData = await getPhotographerData();
