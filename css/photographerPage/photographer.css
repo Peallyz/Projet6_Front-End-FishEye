@@ -1,4 +1,5 @@
 @import "./likeContainer.css";
+@import "./medias.css";
 
 #contact_modal {
   display: none;
