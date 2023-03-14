@@ -59,11 +59,11 @@ const displayLikeCountAndPrice = async (photographerData, mediasData) => {
 
 //display medias
 
-async function displayMedia(medias) {
-  const mediaSection = document.querySelector(".photographer_section");
-
-  medias.forEach((media) => {
-    const mediaModel = mediaFactory(media);
+async function displayMedia(medias, photographerName) {
+  const mediaSection = document.querySelector(".medias");
+  console.log(medias);
+  medias.map((media) => {
+    const mediaModel = mediaFactory(media, photographerName);
     const mediaCardDOM = mediaModel.getMediaCardDOM();
     mediaSection.appendChild(mediaCardDOM);
   });
@@ -74,7 +74,7 @@ async function init() {
   const photographerData = await getPhotographerData();
   displayPhotographerData(photographerData[0][0]);
   displayLikeCountAndPrice(photographerData[0][0], photographerData[1]);
-  displayMedia(photographerData[1]);
+  displayMedia(photographerData[1], photographerData[0][0].name);
 }
 
 init();
