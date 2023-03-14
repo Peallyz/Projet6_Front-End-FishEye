@@ -71,14 +71,5 @@ const photographerFactory = (data) => {
   };
 };
 
-// const mediaFactory = (data) => {
-//   const { media } = data;
-
-//   function getUserAvatarDOM() {
-//     console.log(media);
-//   }
-
-//   return { getUserAvatarDOM };
-// };
 
 export { photographerFactory };
