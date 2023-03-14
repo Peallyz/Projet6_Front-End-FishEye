@@ -1,0 +1,26 @@
+.medias {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 50px 100px;
+}
+
+.medias article {
+  margin: 0 50px 30px;
+}
+.medias img {
+  width: 350px;
+  height: 300px;
+  border-radius: 5px;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.medias div {
+  display: flex;
+  justify-content: space-between;
+  color: #901c1c;
+  font-size: 20px;
+  font-weight: 400;
+}
