@@ -1,7 +1,6 @@
 import { photographerFactory } from "../factories/photographer.js";
 import { mediaFactory } from "../factories/media.js";
 
-
 //Retrieve current URL id
 
 const url = new URL(window.location);
@@ -42,7 +41,7 @@ async function displayPhotographerData(photographerData) {
 
 //display bottom fix container with total like and price
 
-const displayLikeCountAndPrice = async(photographerData, mediasData)=>{
+const displayLikeCountAndPrice = async (photographerData, mediasData) => {
   const priceAndLikeContainer = document.querySelector(".like__container");
   const price = `${photographerData.price}€ / jour`;
   const priceContainer = document.createElement("p");
@@ -50,19 +49,32 @@ const displayLikeCountAndPrice = async(photographerData, mediasData)=>{
   const medias = mediaFactory(mediasData);
   const like = medias.getTotalLike();
   const likeContainer = document.createElement("p");
-  likeContainer.innerText = like
+  const heart = document.createElement("i");
+  heart.setAttribute("class", "fa-solid fa-heart");
+  likeContainer.innerText = like;
+  likeContainer.appendChild(heart);
+  priceAndLikeContainer.appendChild(likeContainer);
+  priceAndLikeContainer.appendChild(priceContainer);
+};
 
+//display medias
 
+async function displayMedia(medias) {
+  const mediaSection = document.querySelector(".photographer_section");
 
-  priceAndLikeContainer.appendChild(likeContainer)
-  priceAndLikeContainer.appendChild(priceContainer)
+  medias.forEach((media) => {
+    const mediaModel = mediaFactory(media);
+    const mediaCardDOM = mediaModel.getMediaCardDOM();
+    mediaSection.appendChild(mediaCardDOM);
+  });
 }
 
 async function init() {
   // Récupère les datas des photographes
   const photographerData = await getPhotographerData();
   displayPhotographerData(photographerData[0][0]);
-  displayLikeCountAndPrice(photographerData[0][0], photographerData[1])
+  displayLikeCountAndPrice(photographerData[0][0], photographerData[1]);
+  displayMedia(photographerData[1]);
 }
 
 init();
