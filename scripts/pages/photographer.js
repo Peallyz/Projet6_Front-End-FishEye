@@ -57,11 +57,28 @@ const displayLikeCountAndPrice = async (photographerData, mediasData) => {
   priceAndLikeContainer.appendChild(priceContainer);
 };
 
+// Sort media
+
+async function displaySortedMedia(photographerData, value = "popularity") {
+  let sortedMedia;
+  if(value === "popularity"){
+     sortedMedia = photographerData[1].sort((a,b) => b.likes - a.likes)
+  } else if (value === "date"){
+      sortedMedia = photographerData[1].sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  } else if (value === "title"){
+    sortedMedia =  photographerData[1].sort((a,b) => a.title.localeCompare(b.title))
+  } else {
+    sortedMedia = photographerData[1]
+  }
+
+  displayMedia(sortedMedia, photographerData[0][0].name);
+}
+
 //display medias
 
 async function displayMedia(medias, photographerName) {
   const mediaSection = document.querySelector(".medias");
-  console.log(medias);
+  mediaSection.innerHTML = ""
   medias.map((media) => {
     const mediaModel = mediaFactory(media, photographerName);
     const mediaCardDOM = mediaModel.getMediaCardDOM();
@@ -69,12 +86,25 @@ async function displayMedia(medias, photographerName) {
   });
 }
 
-async function init() {
+
+async function init(value = "popularity", type = "render") {
   // Récupère les datas des photographes
   const photographerData = await getPhotographerData();
-  displayPhotographerData(photographerData[0][0]);
-  displayLikeCountAndPrice(photographerData[0][0], photographerData[1]);
-  displayMedia(photographerData[1], photographerData[0][0].name);
+  if(type === "render"){
+    displayPhotographerData(photographerData[0][0]);
+    displayLikeCountAndPrice(photographerData[0][0], photographerData[1]);
+    displaySortedMedia(photographerData, value)
+  } else if (type ===  "re-render"){
+    displaySortedMedia(photographerData, value)
+    console.log(value)
+  }else{
+    displayLikeCountAndPrice(photographerData[0][0], photographerData[1]);
+  }
 }
+
+// Add an event listener on the selector to update and sort medias
+const selector = document.querySelector("#selector")
+selector.addEventListener("change", (e) => init(e.target.value, 're-render'))
+
 
 init();
