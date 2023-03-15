@@ -12,7 +12,6 @@ const mediaFactory = (data, photographerName) => {
 
     const mediaCardDOM = document.createElement("article");
     const img = document.createElement("img");
-    console.log(image);
     img.setAttribute(
       "src",
       `./assets/photographers/${photographerName.replace(" ", "_")}/${
