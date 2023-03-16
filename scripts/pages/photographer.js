@@ -43,18 +43,10 @@ async function displayPhotographerData(photographerData) {
 
 const displayLikeCountAndPrice = async (photographerData, mediasData) => {
   const priceAndLikeContainer = document.querySelector(".like__container");
-  const price = `${photographerData.price}€ / jour`;
-  const priceContainer = document.createElement("p");
-  priceContainer.innerText = price;
-  const medias = mediaFactory(mediasData);
-  const like = medias.getTotalLike();
-  const likeContainer = document.createElement("p");
-  const heart = document.createElement("i");
-  heart.setAttribute("class", "fa-solid fa-heart");
-  likeContainer.innerText = like;
-  likeContainer.appendChild(heart);
-  priceAndLikeContainer.appendChild(likeContainer);
-  priceAndLikeContainer.appendChild(priceContainer);
+  const mediaModel = mediaFactory();
+  const likeAndPriceData = mediaModel.getLikeAndPriceContainerDOM(photographerData, mediasData);
+  priceAndLikeContainer.appendChild(likeAndPriceData[0]);
+  priceAndLikeContainer.appendChild(likeAndPriceData[1]);
 };
 
 // Sort media

@@ -35,7 +35,21 @@ const mediaFactory = (data, photographerName) => {
     return mediaCardDOM;
   }
 
-  return { getTotalLike, getMediaCardDOM };
+  function getLikeAndPriceContainerDOM(photographerData, mediasData){
+    const price = `${photographerData.price}€ / jour`;
+    const priceContainer = document.createElement("p");
+    priceContainer.innerText = price;
+    const medias = mediaFactory(mediasData);
+    const like = medias.getTotalLike();
+    const likeContainer = document.createElement("p");
+    const heart = document.createElement("i");
+    heart.setAttribute("class", "fa-solid fa-heart");
+    likeContainer.innerText = like;
+    likeContainer.appendChild(heart);
+  return [likeContainer,priceContainer]
+  }
+
+  return { getTotalLike, getMediaCardDOM,getLikeAndPriceContainerDOM };
 };
 
 export { mediaFactory };
