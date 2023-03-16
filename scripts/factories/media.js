@@ -1,6 +1,6 @@
 const mediaFactory = (data, photographerName) => {
-  const heart = document.createElement("i");
-  heart.setAttribute("class", "fa-solid fa-heart");
+
+
   function getTotalLike() {
     let totalLikes = 0;
     data.map((el) => (totalLikes += el.likes));
@@ -9,6 +9,10 @@ const mediaFactory = (data, photographerName) => {
 
   function getMediaCardDOM() {
     let { id, photographerId, title, image, video, likes, date, price } = data;
+
+    const heart = document.createElement("i");
+    heart.setAttribute("class", "fa-solid fa-heart");
+    heart.setAttribute("data-id", data.id);
 
     const mediaCardDOM = document.createElement("article");
     const img = document.createElement("img");

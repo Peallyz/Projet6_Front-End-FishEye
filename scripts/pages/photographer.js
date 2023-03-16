@@ -11,6 +11,7 @@ async function getPhotographerData() {
 
   const getMedia = (medias) => {
     let mediasArr = medias.filter((media) => media.photographerId === id);
+    mediasArr.forEach(media => media.hasLike = false)
     return mediasArr;
   };
   const getPhotographer = (photographer) => {
@@ -76,6 +77,20 @@ async function displayMedia(medias, photographerName) {
     const mediaCardDOM = mediaModel.getMediaCardDOM();
     mediaSection.appendChild(mediaCardDOM);
   });
+  const mediaCardsHeart = document.querySelectorAll("article div p i")
+  mediaCardsHeart.forEach(heart => heart.addEventListener("click", (e) => handleLike(e.target, medias)))
+}
+
+const handleLike = (heart, medias) => {
+  const currentMedia = medias.filter((media) => media.id === checkTargetLike(heart))
+  currentMedia.hasLike = true
+  console.log(medias)
+}
+
+const checkTargetLike = (heart, medias) => {
+   const heartId = parseInt(heart.getAttribute("data-id"))
+
+   return heartId
 }
 
 
@@ -86,11 +101,11 @@ async function init(value = "popularity", type = "render") {
     displayPhotographerData(photographerData[0][0]);
     displayLikeCountAndPrice(photographerData[0][0], photographerData[1]);
     displaySortedMedia(photographerData, value)
-  } else if (type ===  "re-render"){
+  } else if (type ===  "sort-re-render"){
     displaySortedMedia(photographerData, value)
     console.log(value)
-  }else{
-    displayLikeCountAndPrice(photographerData[0][0], photographerData[1]);
+  }else if (type ===  "like-re-render"){
+    displayLikeCountAndPrice(photographerData[0][0], photographerData[1], like);
   }
 }
 
