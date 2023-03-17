@@ -1,14 +1,23 @@
-const mediaFactory = (data, photographerName) => {
-
-
+const mediaFactory = (data) => {
   function getTotalLike() {
     let totalLikes = 0;
     data.map((el) => (totalLikes += el.likes));
+    totalLikes += data.filter((media) => media.hasLike === true).length;
     return totalLikes;
   }
 
   function getMediaCardDOM() {
-    let { id, photographerId, title, image, video, likes, date, price } = data;
+    let {
+      id,
+      photographerId,
+      title,
+      image,
+      video,
+      likes,
+      date,
+      price,
+      hasLike,
+    } = data;
 
     const heart = document.createElement("i");
     heart.setAttribute("class", "fa-solid fa-heart");
@@ -18,7 +27,7 @@ const mediaFactory = (data, photographerName) => {
     const img = document.createElement("img");
     img.setAttribute(
       "src",
-      `./assets/photographers/${photographerName.replace(" ", "_")}/${
+      `./assets/photographers/${photographerId}/${
         image ? image : video.replace(".mp4", ".jpg")
       }`
     );
@@ -27,7 +36,7 @@ const mediaFactory = (data, photographerName) => {
     const name = document.createElement("p");
     name.innerText = title;
     const like = document.createElement("p");
-    like.innerText = likes;
+    like.innerText = hasLike ? likes + 1 : likes;
     like.appendChild(heart);
 
     text.appendChild(name);
@@ -39,21 +48,20 @@ const mediaFactory = (data, photographerName) => {
     return mediaCardDOM;
   }
 
-  function getLikeAndPriceContainerDOM(photographerData, mediasData){
+  function getLikeAndPriceContainerDOM(photographerData) {
     const price = `${photographerData.price}€ / jour`;
     const priceContainer = document.createElement("p");
     priceContainer.innerText = price;
-    const medias = mediaFactory(mediasData);
-    const like = medias.getTotalLike();
+    const like = getTotalLike();
     const likeContainer = document.createElement("p");
     const heart = document.createElement("i");
     heart.setAttribute("class", "fa-solid fa-heart");
     likeContainer.innerText = like;
     likeContainer.appendChild(heart);
-  return [likeContainer,priceContainer]
+    return [likeContainer, priceContainer];
   }
 
-  return { getTotalLike, getMediaCardDOM,getLikeAndPriceContainerDOM };
+  return { getTotalLike, getMediaCardDOM, getLikeAndPriceContainerDOM };
 };
 
 export { mediaFactory };
