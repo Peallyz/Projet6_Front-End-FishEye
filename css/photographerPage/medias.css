@@ -24,3 +24,7 @@
   font-size: 20px;
   font-weight: 400;
 }
+.medias div p:nth-of-type(2) i {
+  cursor: pointer;
+  margin-left: 5px;
+}

@@ -20,7 +20,10 @@ const mediaFactory = (data) => {
     } = data;
 
     const heart = document.createElement("i");
-    heart.setAttribute("class", "fa-solid fa-heart");
+    heart.setAttribute(
+      "class",
+      hasLike ? "fa-solid fa-heart" : "fa-regular fa-heart"
+    );
     heart.setAttribute("data-id", data.id);
 
     const mediaCardDOM = document.createElement("article");
