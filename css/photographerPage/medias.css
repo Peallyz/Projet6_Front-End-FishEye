@@ -28,3 +28,9 @@
   cursor: pointer;
   margin-left: 5px;
 }
+.medias div p:nth-of-type(1) {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 280px;
+  overflow: hidden;
+}
