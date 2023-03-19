@@ -5,6 +5,7 @@ import { mediaFactory } from "../factories/media.js";
 
 const url = new URL(window.location);
 const id = parseInt(url.searchParams.get("id"));
+let sorted = "popularity";
 
 async function getPhotographerData() {
   // fetch photographers' data
@@ -31,9 +32,9 @@ async function getPhotographerData() {
 
 // Display photographer data on their page
 
-async function displayPhotographerData(photographerData) {
+async function displayPhotographerData(photographerDatas) {
   const photographersHeader = document.querySelector(".photograph-header");
-  const photographer = photographerFactory(photographerData);
+  const photographer = photographerFactory(photographerDatas[0][0]);
   const userHeaderTextDOM = photographer.getUserHeaderTextDOM();
   photographersHeader.prepend(userHeaderTextDOM);
   const userAvatarDOM = photographer.getUserAvatarDOM();
@@ -42,11 +43,12 @@ async function displayPhotographerData(photographerData) {
 
 //display bottom fix container with total like and price
 
-const displayLikeCountAndPrice = async (photographerData, mediasData) => {
+const displayLikeCountAndPrice = async (photographerDatas) => {
   const priceAndLikeContainer = document.querySelector(".like__container");
-  const mediaModel = mediaFactory(mediasData);
-  const likeAndPriceData =
-    mediaModel.getLikeAndPriceContainerDOM(photographerData);
+  const mediaModel = mediaFactory(photographerDatas[1]);
+  const likeAndPriceData = mediaModel.getLikeAndPriceContainerDOM(
+    photographerDatas[0][0]
+  );
   priceAndLikeContainer.appendChild(likeAndPriceData[0]);
   priceAndLikeContainer.appendChild(likeAndPriceData[1]);
 };
@@ -84,47 +86,54 @@ async function displayMedia(medias, photographerName) {
   });
 }
 
-async function init(value = "popularity", type = "render", media = []) {
+async function init() {
   // Récupère les datas des photographes
   const photographerData = await getPhotographerData();
 
-  if (type === "render") {
-    displayPhotographerData(photographerData[0][0]);
-    displayLikeCountAndPrice(photographerData[0][0], photographerData[1]);
-    displaySortedMedia(photographerData, value);
-  } else if (type === "sort-re-render") {
-    displaySortedMedia(photographerData, value);
-    console.log(value);
-  } else if (type === "like-re-render") {
-    displayLikeCountAndPrice(photographerData[0][0], photographerData[1], like);
-  }
+  displayPhotographerData(photographerData);
+  displayLikeCountAndPrice(photographerData);
+  displaySortedMedia(photographerData, sorted);
+
+  return photographerData;
 }
+
+// Fetch data and display all data
+const medias = await init();
 
 // Add an event listener on the selector to update and sort medias
 const selector = document.querySelector("#selector");
-selector.addEventListener("change", (e) =>
-  init(e.target.value, "sort-re-render")
-);
+selector.addEventListener("change", (e) => {
+  sorted = e.target.value;
+  displaySortedMedia(medias, sorted);
+});
 
 // Add an event listener on each heart
 
-const mediaCardsHeart = document.querySelectorAll("article div p i");
-mediaCardsHeart.forEach((heart) =>
-  heart.addEventListener("click", (e) => handleLike(e.target, medias))
-);
+const updateLike = () => {
+  const mediaCardsHeart = document.querySelectorAll("article div p i");
+  mediaCardsHeart.forEach((heart) =>
+    heart.addEventListener("click", (e) => {
+      handleLike(e.target, medias);
+      console.log("ok");
+    })
+  );
+};
+updateLike();
 
 //If media has like remove it, neither add a like
 
 const handleLike = (heart, medias) => {
-  const target = medias.filter(
+  const target = medias[1].filter(
     (media) => media.id === checkTargetLike(heart)
   )[0];
 
-  if (hasLike(medias, heart, target)) {
+  if (hasLike(target)) {
     target.hasLike = false;
   } else if (!hasLike(target)) {
     target.hasLike = true;
   }
+  displaySortedMedia(medias, sorted);
+  updateLike();
 };
 
 // Check if the media already has been liked or not
@@ -141,8 +150,5 @@ const hasLike = (target) => {
 
 const checkTargetLike = (heart) => {
   const heartId = parseInt(heart.getAttribute("data-id"));
-
   return heartId;
 };
-
-init();
