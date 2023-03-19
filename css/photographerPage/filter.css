@@ -1,32 +1,61 @@
 .sort {
   margin: 0 0 50px 100px;
 }
-.sort form {
+.sort {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: baseline;
+  position: relative;
 }
 
-.sort form label {
+.sort h2 {
   color: black;
   font-size: 1.8rem;
   font-weight: 700;
   margin-right: 25px;
 }
 
-.sort select {
-  display: none;
-  outline: none;
-  border: none;
+.sort .selector {
+  display: flex;
+  flex-direction: column;
   border-radius: 5px;
   background: #901c1c;
-  height: 60px;
   color: white;
   width: 170px;
   font-size: 18px;
   padding-left: 20px;
-  position: relative;
+  position: absolute;
+  top: -20px;
+  left: 100px;
 }
-.sort option {
-  height: 60px;
+
+.sort .selector span {
+  margin-top: 20px;
+  height: 50px;
+  position: relative;
+  cursor: pointer;
+}
+.sort .selector span::before {
+  display: block;
+  content: "";
+  position: absolute;
+  width: 90%;
+  top: -20px;
+  height: 2px;
+  background: white;
+  left: 45%;
+  transform: translateX(-50%);
+}
+.sort .selector span.selected {
+  margin-top: 20px;
+  height: 45px;
+}
+.sort .selector span.selected::before {
+  display: none;
+}
+.sort .selector span.hide {
+  display: none;
+}
+.sort .selector.open span.hide {
+  display: block;
 }
