@@ -30,6 +30,8 @@ async function getPhotographerData() {
   return data;
 }
 
+////////////////////DISPLAY PHOTOGRAPHE HEADER//////////////////////////
+
 // Display photographer data on their page
 
 async function displayPhotographerData(photographerDatas) {
@@ -40,6 +42,10 @@ async function displayPhotographerData(photographerDatas) {
   const userAvatarDOM = photographer.getUserAvatarDOM();
   photographersHeader.appendChild(userAvatarDOM);
 }
+
+//////////////////////////////////////////////
+
+////////////////////LIKE AND PRICE CONTAINER//////////////////////////
 
 //display bottom fix container with total like and price
 
@@ -54,17 +60,21 @@ const displayLikeCountAndPrice = async (photographerDatas) => {
   priceAndLikeContainer.appendChild(likeAndPriceData[1]);
 };
 
+//////////////////////////////////////////////
+
+//////////////////////SORT AND DISPLAY MEDIA////////////////////////////
+
 // Sort media
 
-async function displaySortedMedia(photographerData, value = "popularity") {
+async function displaySortedMedia(photographerData, value = "popularité") {
   let sortedMedia;
-  if (value === "popularity") {
+  if (value === "popularité") {
     sortedMedia = photographerData[1].sort((a, b) => b.likes - a.likes);
   } else if (value === "date") {
     sortedMedia = photographerData[1].sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
-  } else if (value === "title") {
+  } else if (value === "titre") {
     sortedMedia = photographerData[1].sort((a, b) =>
       a.title.localeCompare(b.title)
     );
@@ -87,39 +97,32 @@ async function displayMedia(medias, photographerName) {
   });
 }
 
-async function init() {
-  // Récupère les datas des photographes
-  const photographerData = await getPhotographerData();
-
-  displayPhotographerData(photographerData);
-  displayLikeCountAndPrice(photographerData);
-  displaySortedMedia(photographerData, sorted);
-
-  return photographerData;
-}
-
-// Fetch data and display all data
-const medias = await init();
-
 // Add an event listener on the selector to update and sort medias
-const selector = document.querySelector("#selector");
-selector.addEventListener("change", (e) => {
-  sorted = e.target.value;
-  displaySortedMedia(medias, sorted);
+const selector = document.querySelector(".selector");
+
+selector.addEventListener("click", (e) => {
+  if (selector.getAttribute("class").includes("open")) {
+    const choicesContainer = document.querySelectorAll(".selector span");
+    let selected = e.target.innerText;
+    choicesContainer.forEach((choice) => (choice.innerText = ""));
+    const choices = ["Popularité", "Date", "Titre"].filter(
+      (choice) => choice !== selected
+    );
+    choicesContainer[0].innerText = selected;
+    choicesContainer[1].innerText = choices[0];
+    choicesContainer[2].innerText = choices[1];
+    sorted = selected.toLowerCase();
+    selector.classList.remove("open");
+    displaySortedMedia(medias, sorted);
+    updateLike();
+  } else {
+    selector.classList.add("open");
+  }
 });
 
-// Add an event listener on each heart
+//////////////////////////////////////////////////
 
-const updateLike = () => {
-  const mediaCardsHeart = document.querySelectorAll("article div p i");
-  mediaCardsHeart.forEach((heart) =>
-    heart.addEventListener("click", (e) => {
-      handleLike(e.target, medias);
-    })
-  );
-};
-
-updateLike();
+////////////////////HANDLE LIKE/////////////////////////
 
 //If media has like remove it, neither add a like
 
@@ -154,3 +157,32 @@ const checkTargetLike = (heart) => {
   const heartId = parseInt(heart.getAttribute("data-id"));
   return heartId;
 };
+
+/////////////////////////////////////////////
+
+async function init() {
+  // Récupère les datas des photographes
+  const photographerData = await getPhotographerData();
+
+  displayPhotographerData(photographerData);
+  displayLikeCountAndPrice(photographerData);
+  displaySortedMedia(photographerData, sorted);
+
+  return photographerData;
+}
+
+// Fetch data and display all data
+const medias = await init();
+
+// Add an event listener on each heart
+
+const updateLike = () => {
+  const mediaCardsHeart = document.querySelectorAll("article div p i");
+  mediaCardsHeart.forEach((heart) =>
+    heart.addEventListener("click", (e) => {
+      handleLike(e.target, medias);
+    })
+  );
+};
+
+updateLike();
