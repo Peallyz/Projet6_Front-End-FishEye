@@ -45,6 +45,7 @@ async function displayPhotographerData(photographerDatas) {
 
 const displayLikeCountAndPrice = async (photographerDatas) => {
   const priceAndLikeContainer = document.querySelector(".like__container");
+  priceAndLikeContainer.innerHTML = "";
   const mediaModel = mediaFactory(photographerDatas[1]);
   const likeAndPriceData = mediaModel.getLikeAndPriceContainerDOM(
     photographerDatas[0][0]
@@ -114,10 +115,10 @@ const updateLike = () => {
   mediaCardsHeart.forEach((heart) =>
     heart.addEventListener("click", (e) => {
       handleLike(e.target, medias);
-      console.log("ok");
     })
   );
 };
+
 updateLike();
 
 //If media has like remove it, neither add a like
@@ -133,6 +134,7 @@ const handleLike = (heart, medias) => {
     target.hasLike = true;
   }
   displaySortedMedia(medias, sorted);
+  displayLikeCountAndPrice(medias);
   updateLike();
 };
 
