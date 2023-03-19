@@ -1,0 +1,32 @@
+.sort {
+  margin: 0 0 50px 100px;
+}
+.sort form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.sort form label {
+  color: black;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-right: 25px;
+}
+
+.sort select {
+  display: none;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background: #901c1c;
+  height: 60px;
+  color: white;
+  width: 170px;
+  font-size: 18px;
+  padding-left: 20px;
+  position: relative;
+}
+.sort option {
+  height: 60px;
+}
