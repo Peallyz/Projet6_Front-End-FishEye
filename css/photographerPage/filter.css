@@ -42,13 +42,13 @@
   transition: all 0.3s ease-in-out;
 }
 .selector.open::before{
-  transform: translateY(0%) rotate(0.625turn);
+  transform: translateY(30%) rotate(0.625turn);
 
 }
 
 .sort .selector span {
-  margin-top: 20px;
-  height: 50px;
+  line-height: 60px;
+  height: 60px;
   position: relative;
   cursor: pointer;
 }
@@ -57,15 +57,15 @@
   content: "";
   position: absolute;
   width: 90%;
-  top: -20px;
+  top: 0px;
   height: 2px;
   background: white;
   left: 45%;
   transform: translateX(-50%);
 }
 .sort .selector span.selected {
-  margin-top: 20px;
-  height: 45px;
+
+  height: 60px;
 }
 .sort .selector span.selected::before {
   display: none;
