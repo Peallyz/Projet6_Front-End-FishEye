@@ -160,6 +160,11 @@ const checkTargetLike = (heart) => {
 
 /////////////////////////////////////////////
 
+const updateModal = (data) => {
+  const modalTitle = document.querySelector(".modal_title")
+  modalTitle.innerText = `Contactez-moi ${data[0][0].name}`
+}
+
 async function init() {
   // Récupère les datas des photographes
   const photographerData = await getPhotographerData();
@@ -167,6 +172,7 @@ async function init() {
   displayPhotographerData(photographerData);
   displayLikeCountAndPrice(photographerData);
   displaySortedMedia(photographerData, sorted);
+  updateModal(photographerData)
 
   return photographerData;
 }
