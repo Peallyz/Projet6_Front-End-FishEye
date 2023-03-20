@@ -18,7 +18,7 @@
     <title>Fisheye - photographe</title>
   </head>
   <body>
-    <header>
+    <header class="main_header">
       <a href="./index.html">
         <img src="assets/images/logo.png" class="logo" alt="Logo de FishEye" />
       </a>
@@ -45,11 +45,12 @@
           <h2 class="modal_title">Contactez-moi</h2>
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
-        <form>
-          <div>
+        <main>
+          <form>
+            <div>
             <label for="prenom">Prénom</label>
             <input id="prenom" type="text" minlength="2" required>
-
+            
             <label for="nom">Nom</label>
             <input id="nom" type="text" minlength="2" required>
             <label for="email">Email</label>
@@ -60,6 +61,7 @@
           </div>
           <button class="contact_button">Envoyer</button>
         </form>
+      </main>
       </div>
     </div>
     <script src="./scripts/pages/photographer.js" type="module"></script>
