@@ -1,6 +1,7 @@
 @import "./likeContainer.css";
 @import "./medias.css";
 @import "./filter.css";
+@import "./lightbox.css";
 
 #contact_modal {
   display: none;
@@ -57,7 +58,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
 }
-.contact_button:hover{
+.contact_button:hover {
   background-color: #db8876;
 }
 
