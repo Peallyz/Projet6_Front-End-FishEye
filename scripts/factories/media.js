@@ -66,17 +66,27 @@ const mediaFactory = (data) => {
   }
 
   function getLightboxContainerDOM(id, medias) {
-    const imgsToDisplay = captureMedia(id, medias);
     const lightboxContainer = document.querySelector(".lightbox");
+    lightboxContainer.innerHTML = "";
+    const header = document.querySelector(".main_header");
+    const main = document.querySelector("#main");
+    header.classList.add("close");
+    main.classList.add("close");
     lightboxContainer.classList.remove("close");
 
+    const imgsToDisplay = captureMedia(id, medias);
+
     const lightbox = document.createElement("div");
+
     const chevronLeft = document.createElement("i");
     chevronLeft.setAttribute("class", "chevron fa-solid fa-chevron-left");
+
     const chevronRight = document.createElement("i");
     chevronRight.setAttribute("class", "chevron fa-solid fa-chevron-right");
+
     const cross = document.createElement("i");
     cross.setAttribute("class", "lightbox__cross fa-solid fa-xmark");
+    cross.addEventListener("click", () => closeLightbox());
 
     const imgs = document.createElement("div");
     imgs.setAttribute("class", "imgs__container");
@@ -94,6 +104,12 @@ const mediaFactory = (data) => {
           : `./assets/photographers/${media.photographerId}/${media.video}`
       );
       picture.setAttribute("alt", media.title);
+      picture.setAttribute("class", "lightbox__media");
+      if (media.video) {
+        picture.setAttribute("type", "video/mp4");
+        picture.setAttribute("autoplay", "true");
+        picture.setAttribute("loop", "true");
+      }
       title.innerText = media.title;
       img.appendChild(picture);
       img.appendChild(title);
@@ -105,7 +121,7 @@ const mediaFactory = (data) => {
     lightbox.appendChild(cross);
     lightbox.appendChild(imgs);
 
-    return lightbox;
+    return [lightbox, imgsToDisplay];
   }
 
   function captureMedia(id, medias) {
@@ -128,6 +144,15 @@ const mediaFactory = (data) => {
     }
 
     return imgsToDisplay;
+  }
+
+  function closeLightbox() {
+    const lightboxContainer = document.querySelector(".lightbox");
+    const header = document.querySelector(".main_header");
+    const main = document.querySelector("#main");
+    header.classList.remove("close");
+    main.classList.remove("close");
+    lightboxContainer.classList.add("close");
   }
 
   return {
