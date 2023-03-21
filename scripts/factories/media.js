@@ -33,7 +33,8 @@ const mediaFactory = (data) => {
       `./assets/photographers/${photographerId}/${
         image ? image : video.replace(".mp4", ".jpg")
       }`
-    );
+      );
+      img.setAttribute('data-id', id)
     img.setAttribute("alt", title);
     const text = document.createElement("div");
     const name = document.createElement("p");
@@ -64,7 +65,32 @@ const mediaFactory = (data) => {
     return [likeContainer, priceContainer];
   }
 
-  return { getTotalLike, getMediaCardDOM, getLikeAndPriceContainerDOM };
+  function getLightboxContainerDOM(id, medias){
+    const imgsToDisplay = captureMedia(id, medias)
+  }
+
+  function  captureMedia(id, medias){
+    const indexOfId = medias.indexOf(medias.filter(media => media.id === parseInt(id))[0])
+    const imgsToDisplay = []
+      if(indexOfId === medias.length - 1){
+        imgsToDisplay.push(medias[indexOfId - 1])
+        imgsToDisplay.push(medias[indexOfId])
+        imgsToDisplay.push(medias[0])
+      }
+      else if(indexOfId === 0){
+        imgsToDisplay.push(medias[medias.length - 1])
+        imgsToDisplay.push(medias[indexOfId])
+        imgsToDisplay.push(medias[indexOfId + 1])
+      } else {
+        imgsToDisplay.push(medias[indexOfId - 1])
+        imgsToDisplay.push(medias[indexOfId])
+        imgsToDisplay.push(medias[indexOfId + 1])
+      }
+
+    return imgsToDisplay
+  }
+
+  return { getTotalLike, getMediaCardDOM, getLikeAndPriceContainerDOM, getLightboxContainerDOM };
 };
 
 export { mediaFactory };
