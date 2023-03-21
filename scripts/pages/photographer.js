@@ -163,32 +163,58 @@ const checkTargetLike = (heart) => {
 ///////////////////EVENT LISTENER ON MODAL//////////////////////////
 
 const updateModal = (data) => {
-  const modalTitle = document.querySelector(".modal_title")
-  modalTitle.innerText = `Contactez-moi ${data[0][0].name}`
-}
+  const modalTitle = document.querySelector(".modal_title");
+  modalTitle.innerText = `Contactez-moi ${data[0][0].name}`;
+};
 /////////////////////////////////////////////
-
 
 /////////////////////HANDLE MODAL////////////////////////
 
 const initLightbox = () => {
-  const articles = document.querySelectorAll("article")
+  const articles = document.querySelectorAll("article img");
   articles.forEach((article) => {
-    article.addEventListener("click" , (e) => openLightbox(e.target, medias))
-  })
-}
+    article.addEventListener("click", (e) => displayLightbox(e.target, medias));
+  });
+};
 
-const openLightbox = (target, medias) => {
-  const id = target.getAttribute("data-id")
-  const lightbox = document.querySelector(".lightbox")
-  const mediaModel = mediaFactory()
-  const lightboxContainerDOM = mediaModel.getLightboxContainerDOM(id, medias[1]);
-  lightbox.appendChild(lightboxContainerDOM)
-}
+const displayLightbox = (target, medias) => {
+  const id =
+    typeof target == "number" ? target : target.getAttribute("data-id");
+  const lightbox = document.querySelector(".lightbox");
+  const mediaModel = mediaFactory();
+  const lightboxContainerDOM = mediaModel.getLightboxContainerDOM(
+    id,
+    medias[1]
+  );
+  lightbox.appendChild(lightboxContainerDOM[0]);
+
+  const chevronRight = document.querySelector(".fa-chevron-right");
+  chevronRight.addEventListener("click", () =>
+    movingMedia("right", medias, lightboxContainerDOM[1])
+  );
+
+  const chevronLeft = document.querySelector(".fa-chevron-left");
+  chevronLeft.addEventListener("click", () =>
+    movingMedia("left", medias, lightboxContainerDOM[1])
+  );
+};
+
+const movingMedia = (direction, allMedias, currentMedias) => {
+  const imgs = document.querySelector(".imgs__container");
+  if (direction === "left") {
+    imgs.classList.add("move__left");
+    setTimeout(() => {
+      displayLightbox(currentMedias[0].id, allMedias);
+    }, 500);
+  } else if (direction === "right") {
+    imgs.classList.add("move__right");
+    setTimeout(() => {
+      displayLightbox(currentMedias[2].id, allMedias);
+    }, 500);
+  }
+};
 
 /////////////////////////////////////////////
-
-
 
 async function init() {
   // Récupère les datas des photographes
@@ -197,8 +223,8 @@ async function init() {
   displayPhotographerData(photographerData);
   displayLikeCountAndPrice(photographerData);
   displaySortedMedia(photographerData, sorted);
-  updateModal(photographerData)
-  initLightbox()
+  updateModal(photographerData);
+  initLightbox();
 
   return photographerData;
 }
