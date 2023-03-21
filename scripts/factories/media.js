@@ -33,8 +33,8 @@ const mediaFactory = (data) => {
       `./assets/photographers/${photographerId}/${
         image ? image : video.replace(".mp4", ".jpg")
       }`
-      );
-      img.setAttribute('data-id', id)
+    );
+    img.setAttribute("data-id", id);
     img.setAttribute("alt", title);
     const text = document.createElement("div");
     const name = document.createElement("p");
@@ -65,32 +65,77 @@ const mediaFactory = (data) => {
     return [likeContainer, priceContainer];
   }
 
-  function getLightboxContainerDOM(id, medias){
-    const imgsToDisplay = captureMedia(id, medias)
+  function getLightboxContainerDOM(id, medias) {
+    const imgsToDisplay = captureMedia(id, medias);
+    const lightboxContainer = document.querySelector(".lightbox");
+    lightboxContainer.classList.remove("close");
+
+    const lightbox = document.createElement("div");
+    const chevronLeft = document.createElement("i");
+    chevronLeft.setAttribute("class", "chevron fa-regular fa-chevron-left");
+    const chevronRight = document.createElement("i");
+    chevronRight.setAttribute("class", "chevron fa-regular fa-chevron-right");
+    const cross = document.createElement("i");
+    cross.setAttribute("class", "lightbox__cross fa-solid fa-xmark");
+
+    const imgs = document.createElement("div");
+    imgs.setAttribute("class", "imgs__container");
+
+    imgsToDisplay.forEach((media) => {
+      const img = document.createElement("div");
+      img.setAttribute("class", "img__container");
+      const picture = document.createElement(media.image ? "img" : "video");
+      const title = document.createElement("h2");
+
+      picture.setAttribute(
+        "src",
+        media.image
+          ? `./assets/photographers/${media.photographerId}/${media.image}`
+          : `./assets/photographers/${media.photographerId}/${media.video}`
+      );
+      picture.setAttribute("alt", media.title);
+      title.innerText = media.title;
+      img.appendChild(picture);
+      img.appendChild(title);
+      imgs.appendChild(img);
+    });
+
+    lightbox.appendChild(chevronLeft);
+    lightbox.appendChild(chevronRight);
+    lightbox.appendChild(cross);
+    lightbox.appendChild(imgs);
+
+    return lightbox;
   }
 
-  function  captureMedia(id, medias){
-    const indexOfId = medias.indexOf(medias.filter(media => media.id === parseInt(id))[0])
-    const imgsToDisplay = []
-      if(indexOfId === medias.length - 1){
-        imgsToDisplay.push(medias[indexOfId - 1])
-        imgsToDisplay.push(medias[indexOfId])
-        imgsToDisplay.push(medias[0])
-      }
-      else if(indexOfId === 0){
-        imgsToDisplay.push(medias[medias.length - 1])
-        imgsToDisplay.push(medias[indexOfId])
-        imgsToDisplay.push(medias[indexOfId + 1])
-      } else {
-        imgsToDisplay.push(medias[indexOfId - 1])
-        imgsToDisplay.push(medias[indexOfId])
-        imgsToDisplay.push(medias[indexOfId + 1])
-      }
+  function captureMedia(id, medias) {
+    const indexOfId = medias.indexOf(
+      medias.filter((media) => media.id === parseInt(id))[0]
+    );
+    const imgsToDisplay = [];
+    if (indexOfId === medias.length - 1) {
+      imgsToDisplay.push(medias[indexOfId - 1]);
+      imgsToDisplay.push(medias[indexOfId]);
+      imgsToDisplay.push(medias[0]);
+    } else if (indexOfId === 0) {
+      imgsToDisplay.push(medias[medias.length - 1]);
+      imgsToDisplay.push(medias[indexOfId]);
+      imgsToDisplay.push(medias[indexOfId + 1]);
+    } else {
+      imgsToDisplay.push(medias[indexOfId - 1]);
+      imgsToDisplay.push(medias[indexOfId]);
+      imgsToDisplay.push(medias[indexOfId + 1]);
+    }
 
-    return imgsToDisplay
+    return imgsToDisplay;
   }
 
-  return { getTotalLike, getMediaCardDOM, getLikeAndPriceContainerDOM, getLightboxContainerDOM };
+  return {
+    getTotalLike,
+    getMediaCardDOM,
+    getLikeAndPriceContainerDOM,
+    getLightboxContainerDOM,
+  };
 };
 
 export { mediaFactory };
