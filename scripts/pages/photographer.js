@@ -5,7 +5,7 @@ import { mediaFactory } from "../factories/media.js";
 
 const url = new URL(window.location);
 const id = parseInt(url.searchParams.get("id"));
-let sorted = "popularity";
+let sorted = "popularité";
 
 async function getPhotographerData() {
   // fetch photographers' data
@@ -160,10 +160,35 @@ const checkTargetLike = (heart) => {
 
 /////////////////////////////////////////////
 
+///////////////////EVENT LISTENER ON MODAL//////////////////////////
+
 const updateModal = (data) => {
   const modalTitle = document.querySelector(".modal_title")
   modalTitle.innerText = `Contactez-moi ${data[0][0].name}`
 }
+/////////////////////////////////////////////
+
+
+/////////////////////HANDLE MODAL////////////////////////
+
+const initLightbox = () => {
+  const articles = document.querySelectorAll("article")
+  articles.forEach((article) => {
+    article.addEventListener("click" , (e) => openLightbox(e.target, medias))
+  })
+}
+
+const openLightbox = (target, medias) => {
+  const id = target.getAttribute("data-id")
+  const lightbox = document.querySelector(".lightbox")
+  const mediaModel = mediaFactory()
+  const lightboxContainerDOM = mediaModel.getLightboxContainerDOM(id, medias[1]);
+  lightbox.appendChild(lightboxContainerDOM)
+}
+
+/////////////////////////////////////////////
+
+
 
 async function init() {
   // Récupère les datas des photographes
@@ -173,6 +198,7 @@ async function init() {
   displayLikeCountAndPrice(photographerData);
   displaySortedMedia(photographerData, sorted);
   updateModal(photographerData)
+  initLightbox()
 
   return photographerData;
 }
