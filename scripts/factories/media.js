@@ -72,9 +72,9 @@ const mediaFactory = (data) => {
 
     const lightbox = document.createElement("div");
     const chevronLeft = document.createElement("i");
-    chevronLeft.setAttribute("class", "chevron fa-regular fa-chevron-left");
+    chevronLeft.setAttribute("class", "chevron fa-solid fa-chevron-left");
     const chevronRight = document.createElement("i");
-    chevronRight.setAttribute("class", "chevron fa-regular fa-chevron-right");
+    chevronRight.setAttribute("class", "chevron fa-solid fa-chevron-right");
     const cross = document.createElement("i");
     cross.setAttribute("class", "lightbox__cross fa-solid fa-xmark");
 
