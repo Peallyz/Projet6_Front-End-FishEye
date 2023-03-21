@@ -39,8 +39,8 @@
       <section class="medias"></section>
       <div class="like__container"></div>
     </main>
+    <div class="lightbox close"></div>
     <div id="contact_modal">
-      <div class="lightbox"></div>
       <div class="modal">
         <header>
           <h2 class="modal_title">Contactez-moi</h2>
@@ -49,19 +49,24 @@
         <main>
           <form>
             <div>
-            <label for="prenom">Prénom</label>
-            <input id="prenom" type="text" minlength="2" required>
-            <label for="nom">Nom</label>
-            <input id="nom" type="text" minlength="2" required>
-            <label for="email">Email</label>
-            <input type="email">
-            <label for="message">Votre message</label>
-            <textarea name="message" id="message" cols="30" rows="10"></textarea>
-            <input type="submit" value="Envoyer">
-          </div>
-          <button class="contact_button">Envoyer</button>
-        </form>
-      </main>
+              <label for="prenom">Prénom</label>
+              <input id="prenom" type="text" minlength="2" required />
+              <label for="nom">Nom</label>
+              <input id="nom" type="text" minlength="2" required />
+              <label for="email">Email</label>
+              <input type="email" />
+              <label for="message">Votre message</label>
+              <textarea
+                name="message"
+                id="message"
+                cols="30"
+                rows="10"
+              ></textarea>
+              <input type="submit" value="Envoyer" />
+            </div>
+            <button class="contact_button">Envoyer</button>
+          </form>
+        </main>
       </div>
     </div>
     <script src="./scripts/pages/photographer.js" type="module"></script>
