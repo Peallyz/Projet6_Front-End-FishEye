@@ -95,6 +95,7 @@ async function displayMedia(medias, photographerName) {
     const mediaCardDOM = mediaModel.getMediaCardDOM();
     mediaSection.appendChild(mediaCardDOM);
   });
+  initLightbox();
 }
 
 // Add an event listener on the selector to update and sort medias
