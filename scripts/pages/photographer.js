@@ -103,7 +103,6 @@ const selector = document.querySelector(".selector");
 
 selector.addEventListener("click", (e) => {
   if (selector.getAttribute("class").includes("open")) {
-
     const choicesContainer = document.querySelectorAll(".selector span");
     let selected = e.target.innerText;
 
@@ -126,7 +125,6 @@ selector.addEventListener("click", (e) => {
     ///Update datas and init again like
     displaySortedMedia(medias, sorted);
     updateLike();
-
   } else {
     selector.classList.add("open");
   }
@@ -174,9 +172,9 @@ const checkTargetLike = (heart) => {
 
 ///////////////////EVENT LISTENER ON MODAL//////////////////////////
 
-const updateModal = (data) => {
-  const modalTitle = document.querySelector(".modal_title");
-  modalTitle.innerText = `Contactez-moi ${data[0][0].name}`;
+const updateModalWithName = (data) => {
+  const modalTitle = document.querySelector(".modal_name");
+  modalTitle.innerText = data[0][0].name;
 };
 /////////////////////////////////////////////
 
@@ -234,6 +232,23 @@ const movingMedia = (direction, allMedias, currentMedias) => {
 
 /////////////////////////////////////////////
 
+/////////////////////SEND FORM////////////////////////
+
+const form = document.querySelector(".modal form");
+form.addEventListener("submit", (e) => sendForm(e));
+
+const sendForm = (e) => {
+  e.preventDefault();
+  const formData = new FormData(form);
+  for (let [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+  }
+  const modal = document.querySelector(".contact_modal");
+  modal.classList.add("close");
+};
+
+/////////////////////////////////////////////
+
 async function init() {
   // Capture all datas
   const photographerData = await getPhotographerData();
@@ -241,7 +256,7 @@ async function init() {
   displayPhotographerData(photographerData);
   displayLikeCountAndPrice(photographerData);
   displaySortedMedia(photographerData, sorted);
-  updateModal(photographerData);
+  updateModalWithName(photographerData);
   initLightbox();
 
   return photographerData;
@@ -249,7 +264,6 @@ async function init() {
 
 // Fetch data and display all data
 const medias = await init();
-
 
 // Add an event listener on each heart to handle the toggle like
 
