@@ -44,25 +44,33 @@
       <div class="modal">
         <header>
           <h2 class="modal_title">Contactez-moi</h2>
+          <h2 class="modal_name"></h2>
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
         <main>
-          <form>
+          <form method="get" action="photographer.html">
             <label for="prenom">Prénom</label>
-            <input id="prenom" type="text" minlength="2" required />
+            <input
+              id="prenom"
+              name="prenom"
+              type="text"
+              minlength="2"
+              required
+            />
             <label for="nom">Nom</label>
-            <input id="nom" type="text" minlength="2" required />
+            <input id="nom" name="nom" type="text" minlength="2" required />
             <label for="email">Email</label>
-            <input type="email" />
+            <input type="email" name="email" id="email" required />
             <label for="message">Votre message</label>
             <textarea
               name="message"
               id="message"
               cols="30"
               rows="10"
+              required
             ></textarea>
 
-            <button class="contact_button">Envoyer</button>
+            <button type="submit" class="contact_button">Envoyer</button>
           </form>
         </main>
       </div>
