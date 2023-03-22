@@ -103,19 +103,30 @@ const selector = document.querySelector(".selector");
 
 selector.addEventListener("click", (e) => {
   if (selector.getAttribute("class").includes("open")) {
+
     const choicesContainer = document.querySelectorAll(".selector span");
     let selected = e.target.innerText;
+
+    ///Clean all span to update selector
     choicesContainer.forEach((choice) => (choice.innerText = ""));
+
     const choices = ["Popularité", "Date", "Titre"].filter(
       (choice) => choice !== selected
     );
+
+    /// update selector, selected on top and others hiden
     choicesContainer[0].innerText = selected;
     choicesContainer[1].innerText = choices[0];
     choicesContainer[2].innerText = choices[1];
+
     sorted = selected.toLowerCase();
+
     selector.classList.remove("open");
+
+    ///Update datas and init again like
     displaySortedMedia(medias, sorted);
     updateLike();
+
   } else {
     selector.classList.add("open");
   }
@@ -171,6 +182,8 @@ const updateModal = (data) => {
 
 /////////////////////HANDLE MODAL////////////////////////
 
+///Add Event Listener on all img
+
 const initLightbox = () => {
   const articles = document.querySelectorAll("article img");
   articles.forEach((article) => {
@@ -178,6 +191,8 @@ const initLightbox = () => {
   });
 };
 
+///display media according the current media clicked initally
+///or received after moving
 const displayLightbox = (target, medias) => {
   const id =
     typeof target == "number" ? target : target.getAttribute("data-id");
@@ -200,6 +215,8 @@ const displayLightbox = (target, medias) => {
   );
 };
 
+///Add class to move media according the chevron clicked and update lightbox
+
 const movingMedia = (direction, allMedias, currentMedias) => {
   const imgs = document.querySelector(".imgs__container");
   if (direction === "left") {
@@ -218,7 +235,7 @@ const movingMedia = (direction, allMedias, currentMedias) => {
 /////////////////////////////////////////////
 
 async function init() {
-  // Récupère les datas des photographes
+  // Capture all datas
   const photographerData = await getPhotographerData();
 
   displayPhotographerData(photographerData);
@@ -233,7 +250,8 @@ async function init() {
 // Fetch data and display all data
 const medias = await init();
 
-// Add an event listener on each heart
+
+// Add an event listener on each heart to handle the toggle like
 
 const updateLike = () => {
   const mediaCardsHeart = document.querySelectorAll("article div p i");

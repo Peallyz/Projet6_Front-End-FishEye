@@ -1,10 +1,17 @@
 const mediaFactory = (data) => {
+
+  ///Calculate number of like on all medias
+
   function getTotalLike() {
     let totalLikes = 0;
     data.map((el) => (totalLikes += el.likes));
     totalLikes += data.filter((media) => media.hasLike === true).length;
     return totalLikes;
   }
+
+  //////////////////////////
+
+  ///Return a DOM Element for each media with img, title, like
 
   function getMediaCardDOM() {
     let {
@@ -40,6 +47,8 @@ const mediaFactory = (data) => {
     const name = document.createElement("p");
     name.innerText = title;
     const like = document.createElement("p");
+
+    /// Add one like if user like current media
     like.innerText = hasLike ? likes + 1 : likes;
     like.appendChild(heart);
 
@@ -51,6 +60,10 @@ const mediaFactory = (data) => {
 
     return mediaCardDOM;
   }
+
+  //////////////////////////
+
+  ///Return the bottom left container with price and all Like
 
   function getLikeAndPriceContainerDOM(photographerData) {
     const price = `${photographerData.price}€ / jour`;
@@ -65,18 +78,20 @@ const mediaFactory = (data) => {
     return [likeContainer, priceContainer];
   }
 
+  //////////////////////////
+
   function getLightboxContainerDOM(id, medias) {
+
+    openLightBox()
+
     const lightboxContainer = document.querySelector(".lightbox");
     lightboxContainer.innerHTML = "";
-    const header = document.querySelector(".main_header");
-    const main = document.querySelector("#main");
-    header.classList.add("close");
-    main.classList.add("close");
-    lightboxContainer.classList.remove("close");
 
     const imgsToDisplay = captureMedia(id, medias);
 
     const lightbox = document.createElement("div");
+
+    /// create icons and add them listerners and class for style
 
     const chevronLeft = document.createElement("i");
     chevronLeft.setAttribute("class", "chevron fa-solid fa-chevron-left");
@@ -87,6 +102,11 @@ const mediaFactory = (data) => {
     const cross = document.createElement("i");
     cross.setAttribute("class", "lightbox__cross fa-solid fa-xmark");
     cross.addEventListener("click", () => closeLightbox());
+
+    //////////////////////////
+
+
+    ///Create every DOM Elements and apprend to this main to return it
 
     const imgs = document.createElement("div");
     imgs.setAttribute("class", "imgs__container");
@@ -107,8 +127,9 @@ const mediaFactory = (data) => {
       picture.setAttribute("class", "lightbox__media");
       if (media.video) {
         picture.setAttribute("type", "video/mp4");
-        picture.setAttribute("autoplay", "true");
         picture.setAttribute("loop", "true");
+        if(media === imgsToDisplay[1])
+        picture.setAttribute("autoplay", "true");
       }
       title.innerText = media.title;
       img.appendChild(picture);
@@ -121,8 +142,15 @@ const mediaFactory = (data) => {
     lightbox.appendChild(cross);
     lightbox.appendChild(imgs);
 
+
+    //////////////////////////
+
     return [lightbox, imgsToDisplay];
   }
+
+
+
+  ///Capture the currentMedia and the one before and after, return an array of 3 media
 
   function captureMedia(id, medias) {
     const indexOfId = medias.indexOf(
@@ -146,6 +174,21 @@ const mediaFactory = (data) => {
     return imgsToDisplay;
   }
 
+  ///OpenLightbox and display none everything else
+
+  function openLightBox(){
+    const lightboxContainer = document.querySelector(".lightbox");
+    const header = document.querySelector(".main_header");
+    const main = document.querySelector("#main");
+    header.classList.add("close");
+    main.classList.add("close");
+    lightboxContainer.classList.remove("close");
+  }
+
+  //////////////////////////
+
+  ///CloseLightbox and display block everything else
+
   function closeLightbox() {
     const lightboxContainer = document.querySelector(".lightbox");
     const header = document.querySelector(".main_header");
@@ -154,6 +197,8 @@ const mediaFactory = (data) => {
     main.classList.remove("close");
     lightboxContainer.classList.add("close");
   }
+
+  //////////////////////////
 
   return {
     getTotalLike,
