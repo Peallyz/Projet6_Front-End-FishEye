@@ -109,32 +109,35 @@ const mediaFactory = (data) => {
     ///Create every DOM Elements and apprend to this main to return it
 
     const imgs = document.createElement("div");
-    imgs.setAttribute("class", "imgs__container");
+    imgs.setAttribute("class", "medias__container");
 
     imgsToDisplay.forEach((media) => {
-      const img = document.createElement("div");
-      img.setAttribute("class", "img__container");
-      const picture = document.createElement(media.image ? "img" : "video");
+      const container = document.createElement("div")
+      container.setAttribute("class", "container")
+      const dataContainer = document.createElement("div");
+      dataContainer.setAttribute("class", "media__container");
+      const img = document.createElement(media.image ? "img" : "video");
       const title = document.createElement("h2");
 
-      picture.setAttribute(
+      img.setAttribute(
         "src",
         media.image
           ? `./assets/photographers/${media.photographerId}/${media.image}`
           : `./assets/photographers/${media.photographerId}/${media.video}`
       );
-      picture.setAttribute("alt", media.title);
-      picture.setAttribute("class", "lightbox__media");
+      img.setAttribute("alt", media.title);
+      img.setAttribute("class", "lightbox__media");
       if (media.video) {
-        picture.setAttribute("type", "video/mp4");
-        picture.setAttribute("loop", "true");
+        img.setAttribute("type", "video/mp4");
+        img.setAttribute("loop", "true");
         if(media === imgsToDisplay[1])
-        picture.setAttribute("autoplay", "true");
+        img.setAttribute("autoplay", "true");
       }
       title.innerText = media.title;
-      img.appendChild(picture);
-      img.appendChild(title);
-      imgs.appendChild(img);
+      dataContainer.appendChild(img);
+      dataContainer.appendChild(title);
+      container.appendChild(dataContainer)
+      imgs.appendChild(container);
     });
 
     lightbox.appendChild(chevronLeft);
