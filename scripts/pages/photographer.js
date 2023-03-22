@@ -180,7 +180,7 @@ const updateModal = (data) => {
 };
 /////////////////////////////////////////////
 
-/////////////////////HANDLE MODAL////////////////////////
+/////////////////////HANDLE LIGHTBOX////////////////////////
 
 ///Add Event Listener on all img
 
@@ -218,7 +218,7 @@ const displayLightbox = (target, medias) => {
 ///Add class to move media according the chevron clicked and update lightbox
 
 const movingMedia = (direction, allMedias, currentMedias) => {
-  const imgs = document.querySelector(".imgs__container");
+  const imgs = document.querySelector(".medias__container");
   if (direction === "left") {
     imgs.classList.add("move__left");
     setTimeout(() => {
