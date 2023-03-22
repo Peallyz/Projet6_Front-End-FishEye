@@ -17,6 +17,10 @@ html {
 body {
   font-family: "DM Sans", sans-serif;
 }
+input,
+textarea {
+  font-family: "DM Sans", sans-serif;
+}
 
 a {
   color: inherit;
