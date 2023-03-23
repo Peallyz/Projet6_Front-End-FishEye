@@ -8,7 +8,7 @@
   position: relative;
 }
 
-.sort h2 {
+.sort label {
   color: black;
   font-size: 1.8rem;
   font-weight: 700;
@@ -23,12 +23,14 @@
   color: white;
   width: 170px;
   font-size: 18px;
-  padding-left: 20px;
   position: absolute;
   top: -20px;
   left: 100px;
+  border: none;
 }
-
+.sort .selector:focus {
+  outline: 2px solid black;
+}
 .selector::before{
   content: "";
   position: absolute;
@@ -49,18 +51,21 @@
 .sort .selector span {
   line-height: 60px;
   height: 60px;
+  width: 100%;
   position: relative;
   cursor: pointer;
+  padding-left: 20px;
+  text-align: left;
 }
 .sort .selector span::before {
   display: block;
   content: "";
   position: absolute;
-  width: 90%;
+  width: 80%;
   top: 0px;
   height: 2px;
   background: white;
-  left: 45%;
+  left: 50%;
   transform: translateX(-50%);
 }
 .sort .selector span.selected {

@@ -20,26 +20,26 @@
   <body>
     <header class="main_header">
       <a href="./index.html">
-        <img src="assets/images/logo.png" class="logo" alt="Logo de FishEye" />
+        <img src="assets/images/logo.png" class="logo" alt="Fish Eye Homepage" />
       </a>
     </header>
     <main id="main">
       <section class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">
+        <button aria-label="Contact Me" class="contact_button" onclick="displayModal()">
           Contactez-moi
         </button>
       </section>
       <section class="sort">
-        <h2>Trier par</h2>
-        <div class="selector">
+        <label for="selector">Trier par</label>
+        <button class="selector" type="button" id="selector" role="listbox" aria-haspopup="listbox" aria-expanded="false" aria-activedescendant="true" aria-labelledby="selector" aria-selected="true">
           <span class="selected">Popularité</span><span class="hide">Date</span
           ><span class="hide">Titre</span>
-        </div>
+        </button>
       </section>
       <section class="medias"></section>
       <div class="like__container"></div>
     </main>
-    <div class="lightbox close"></div>
+    <dialog class="lightbox close" aria-label="image closeup view"></dialog>
     <div class="contact_modal close">
       <div class="modal">
         <header>

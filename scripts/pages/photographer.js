@@ -103,7 +103,7 @@ const selector = document.querySelector(".selector");
 
 selector.addEventListener("click", (e) => {
   if (selector.getAttribute("class").includes("open")) {
-    const choicesContainer = document.querySelectorAll(".selector span");
+    const choicesContainer = document.querySelectorAll("button.selector span");
     let selected = e.target.innerText;
 
     ///Clean all span to update selector
@@ -121,12 +121,13 @@ selector.addEventListener("click", (e) => {
     sorted = selected.toLowerCase();
 
     selector.classList.remove("open");
-
+    selector.setAttribute("aria-expanded", "false")
     ///Update datas and init again like
     displaySortedMedia(medias, sorted);
     updateLike();
   } else {
     selector.classList.add("open");
+    selector.setAttribute("aria-expanded", "true")
   }
 });
 

@@ -32,6 +32,7 @@ const mediaFactory = (data) => {
       hasLike ? "fa-solid fa-heart" : "fa-regular fa-heart"
     );
     heart.setAttribute("data-id", data.id);
+    heart.setAttribute("aria-label", "likes");
 
     const mediaCardDOM = document.createElement("article");
     const img = document.createElement("img");
@@ -42,7 +43,7 @@ const mediaFactory = (data) => {
       }`
     );
     img.setAttribute("data-id", id);
-    img.setAttribute("alt", title);
+    img.setAttribute("alt", `${title}, closeup view`);
     const text = document.createElement("div");
     const name = document.createElement("p");
     name.innerText = title;
@@ -95,12 +96,15 @@ const mediaFactory = (data) => {
 
     const chevronLeft = document.createElement("i");
     chevronLeft.setAttribute("class", "chevron fa-solid fa-chevron-left");
-
+    chevronLeft.setAttribute("aria-label", "Previous image");
+    
     const chevronRight = document.createElement("i");
     chevronRight.setAttribute("class", "chevron fa-solid fa-chevron-right");
+    chevronRight.setAttribute("aria-label", "Next image");
 
     const cross = document.createElement("i");
     cross.setAttribute("class", "lightbox__cross fa-solid fa-xmark");
+    cross.setAttribute("aria-label", "Close dialog");
     cross.addEventListener("click", () => closeLightbox());
 
     //////////////////////////
