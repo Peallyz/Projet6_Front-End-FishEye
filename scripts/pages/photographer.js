@@ -188,6 +188,12 @@ const initLightbox = () => {
   articles.forEach((article) => {
     article.addEventListener("click", (e) => displayLightbox(e.target, medias));
   });
+  articles.forEach((article) => {
+    article.addEventListener(
+      "keydown",
+      (e) => e.key === "Enter" && displayLightbox(e.target, medias)
+    );
+  });
 };
 
 ///display media according the current media clicked initally
@@ -248,7 +254,7 @@ const sendForm = (e) => {
   modal.classList.add("close");
 };
 
-/////////////////////////////////////////////
+///////////////////INITIALIZATION//////////////////////////
 
 async function init() {
   // Capture all datas
@@ -275,6 +281,19 @@ const updateLike = () => {
       handleLike(e.target, medias);
     })
   );
+
+  // If user click Enter, add like on photo
+  mediaCardsHeart.forEach((heart) =>
+    heart.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        handleLike(e.target, medias);
+      }
+    })
+  );
 };
 
 updateLike();
+
+////////////////////Listner using keyboard/////////////////////////
+
+/////////////////////////////////////////////
