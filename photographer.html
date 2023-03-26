@@ -19,19 +19,39 @@
   </head>
   <body>
     <header class="main_header">
-      <a href="./index.html">
-        <img src="assets/images/logo.png" class="logo" alt="Fish Eye Homepage" />
+      <a href="./index.html" tabindex="1">
+        <img
+          src="assets/images/logo.png"
+          class="logo"
+          alt="Fish Eye Homepage"
+        />
       </a>
     </header>
     <main id="main">
       <section class="photograph-header">
-        <button aria-label="Contact Me" class="contact_button" onclick="displayModal()">
+        <button
+          aria-label="Contact Me"
+          tabindex="2"
+          class="contact_button"
+          onclick="displayModal()"
+        >
           Contactez-moi
         </button>
       </section>
       <section class="sort">
         <label for="selector">Trier par</label>
-        <button class="selector" type="button" id="selector" role="listbox" aria-haspopup="listbox" aria-expanded="false" aria-activedescendant="true" aria-labelledby="selector" aria-selected="true">
+        <button
+          class="selector"
+          type="button"
+          id="selector"
+          role="listbox"
+          tabindex="3"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-activedescendant="true"
+          aria-labelledby="selector"
+          aria-selected="true"
+        >
           <span class="selected">Popularité</span><span class="hide">Date</span
           ><span class="hide">Titre</span>
         </button>

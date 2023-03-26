@@ -90,9 +90,9 @@ async function displaySortedMedia(photographerData, value = "popularité") {
 async function displayMedia(medias, photographerName) {
   const mediaSection = document.querySelector(".medias");
   mediaSection.innerHTML = "";
-  medias.map((media) => {
+  medias.map((media, index) => {
     const mediaModel = mediaFactory(media, photographerName);
-    const mediaCardDOM = mediaModel.getMediaCardDOM();
+    const mediaCardDOM = mediaModel.getMediaCardDOM(index);
     mediaSection.appendChild(mediaCardDOM);
   });
   initLightbox();
@@ -121,13 +121,13 @@ selector.addEventListener("click", (e) => {
     sorted = selected.toLowerCase();
 
     selector.classList.remove("open");
-    selector.setAttribute("aria-expanded", "false")
+    selector.setAttribute("aria-expanded", "false");
     ///Update datas and init again like
     displaySortedMedia(medias, sorted);
     updateLike();
   } else {
     selector.classList.add("open");
-    selector.setAttribute("aria-expanded", "true")
+    selector.setAttribute("aria-expanded", "true");
   }
 });
 

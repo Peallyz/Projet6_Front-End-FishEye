@@ -1,5 +1,4 @@
 const mediaFactory = (data) => {
-
   ///Calculate number of like on all medias
 
   function getTotalLike() {
@@ -13,7 +12,7 @@ const mediaFactory = (data) => {
 
   ///Return a DOM Element for each media with img, title, like
 
-  function getMediaCardDOM() {
+  function getMediaCardDOM(index) {
     let {
       id,
       photographerId,
@@ -26,6 +25,9 @@ const mediaFactory = (data) => {
       hasLike,
     } = data;
 
+    // starting index at 4 cause of header and photographer data
+    let mediaIndex = index + 4;
+
     const heart = document.createElement("i");
     heart.setAttribute(
       "class",
@@ -33,6 +35,7 @@ const mediaFactory = (data) => {
     );
     heart.setAttribute("data-id", data.id);
     heart.setAttribute("aria-label", "likes");
+    heart.setAttribute("tabindex", mediaIndex * 2);
 
     const mediaCardDOM = document.createElement("article");
     const img = document.createElement("img");
@@ -44,6 +47,8 @@ const mediaFactory = (data) => {
     );
     img.setAttribute("data-id", id);
     img.setAttribute("alt", `${title}, closeup view`);
+    img.setAttribute("tabindex", mediaIndex * 2 - 1);
+    img.setAttribute("role", "link");
     const text = document.createElement("div");
     const name = document.createElement("p");
     name.innerText = title;
@@ -82,8 +87,7 @@ const mediaFactory = (data) => {
   //////////////////////////
 
   function getLightboxContainerDOM(id, medias) {
-
-    openLightBox()
+    openLightBox();
 
     const lightboxContainer = document.querySelector(".lightbox");
     lightboxContainer.innerHTML = "";
@@ -97,7 +101,7 @@ const mediaFactory = (data) => {
     const chevronLeft = document.createElement("i");
     chevronLeft.setAttribute("class", "chevron fa-solid fa-chevron-left");
     chevronLeft.setAttribute("aria-label", "Previous image");
-    
+
     const chevronRight = document.createElement("i");
     chevronRight.setAttribute("class", "chevron fa-solid fa-chevron-right");
     chevronRight.setAttribute("aria-label", "Next image");
@@ -109,15 +113,14 @@ const mediaFactory = (data) => {
 
     //////////////////////////
 
-
     ///Create every DOM Elements and apprend to this main to return it
 
     const imgs = document.createElement("div");
     imgs.setAttribute("class", "medias__container");
 
     imgsToDisplay.forEach((media) => {
-      const container = document.createElement("div")
-      container.setAttribute("class", "container")
+      const container = document.createElement("div");
+      container.setAttribute("class", "container");
       const dataContainer = document.createElement("div");
       dataContainer.setAttribute("class", "media__container");
       const img = document.createElement(media.image ? "img" : "video");
@@ -134,13 +137,12 @@ const mediaFactory = (data) => {
       if (media.video) {
         img.setAttribute("type", "video/mp4");
         img.setAttribute("loop", "true");
-        if(media === imgsToDisplay[1])
-        img.setAttribute("autoplay", "true");
+        if (media === imgsToDisplay[1]) img.setAttribute("autoplay", "true");
       }
       title.innerText = media.title;
       dataContainer.appendChild(img);
       dataContainer.appendChild(title);
-      container.appendChild(dataContainer)
+      container.appendChild(dataContainer);
       imgs.appendChild(container);
     });
 
@@ -149,13 +151,10 @@ const mediaFactory = (data) => {
     lightbox.appendChild(cross);
     lightbox.appendChild(imgs);
 
-
     //////////////////////////
 
     return [lightbox, imgsToDisplay];
   }
-
-
 
   ///Capture the currentMedia and the one before and after, return an array of 3 media
 
@@ -183,7 +182,7 @@ const mediaFactory = (data) => {
 
   ///OpenLightbox and display none everything else
 
-  function openLightBox(){
+  function openLightBox() {
     const lightboxContainer = document.querySelector(".lightbox");
     const header = document.querySelector(".main_header");
     const main = document.querySelector("#main");
