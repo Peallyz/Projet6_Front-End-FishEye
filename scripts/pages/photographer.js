@@ -209,6 +209,15 @@ const displayLightbox = (target, medias) => {
   );
   lightbox.appendChild(lightboxContainerDOM[0]);
 
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") {
+      movingMedia("right", medias, lightboxContainerDOM[1]);
+    }
+    if (e.key === "ArrowLeft") {
+      movingMedia("left", medias, lightboxContainerDOM[1]);
+    }
+  });
+
   const chevronRight = document.querySelector(".fa-chevron-right");
   chevronRight.addEventListener("click", () =>
     movingMedia("right", medias, lightboxContainerDOM[1])
