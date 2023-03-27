@@ -209,14 +209,7 @@ const displayLightbox = (target, medias) => {
   );
   lightbox.appendChild(lightboxContainerDOM[0]);
 
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowRight") {
-      movingMedia("right", medias, lightboxContainerDOM[1]);
-    }
-    if (e.key === "ArrowLeft") {
-      movingMedia("left", medias, lightboxContainerDOM[1]);
-    }
-  });
+  window.addEventListener("keydown", (e)=> handleListenerTest(e, medias, lightboxContainerDOM))
 
   const chevronRight = document.querySelector(".fa-chevron-right");
   chevronRight.addEventListener("click", () =>
@@ -229,6 +222,16 @@ const displayLightbox = (target, medias) => {
   );
 };
 
+
+function handleListenerTest(e, medias, lightboxContainerDOM){
+  if (e.key === "ArrowRight") {
+    movingMedia("right", medias, lightboxContainerDOM[1]);
+  }
+  if (e.key === "ArrowLeft") {
+    movingMedia("left", medias, lightboxContainerDOM[1]);
+  }
+  window.removeEventListener("keydown", handleListenerTest)
+}
 ///Add class to move media according the chevron clicked and update lightbox
 
 const movingMedia = (direction, allMedias, currentMedias) => {
