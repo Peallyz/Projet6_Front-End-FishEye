@@ -109,6 +109,10 @@ const mediaFactory = (data) => {
     const cross = document.createElement("i");
     cross.setAttribute("class", "lightbox__cross fa-solid fa-xmark");
     cross.setAttribute("aria-label", "Close dialog");
+    lightbox.addEventListener(
+      "keydown",
+      (e) => e.key === "Escape" && closeLightbox()
+    );
     cross.addEventListener("click", () => closeLightbox());
 
     //////////////////////////
