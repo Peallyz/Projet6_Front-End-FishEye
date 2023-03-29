@@ -38,13 +38,13 @@
           Contactez-moi
         </button>
       </section>
-      <section class="sort">
+      <div class="sort">
         <label for="selector">Trier par</label>
         <button
           class="selector"
           type="button"
           id="selector"
-          role="listbox"
+          role="button"
           tabindex="3"
           aria-haspopup="listbox"
           aria-expanded="false"
@@ -55,7 +55,7 @@
           <span class="selected">Popularité</span><span class="hide">Date</span
           ><span class="hide">Titre</span>
         </button>
-      </section>
+      </div>
       <section class="medias"></section>
       <div class="like__container"></div>
     </main>
@@ -65,7 +65,11 @@
         <header>
           <h2 class="modal_title">Contactez-moi</h2>
           <h2 class="modal_name"></h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <img
+            src="assets/icons/close.svg"
+            alt="Close dialog"
+            onclick="closeModal()"
+          />
         </header>
         <main>
           <form method="get" action="photographer.html">
