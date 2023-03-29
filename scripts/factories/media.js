@@ -50,7 +50,7 @@ const mediaFactory = (data) => {
     img.setAttribute("tabindex", mediaIndex * 2 - 1);
     img.setAttribute("role", "link");
     const text = document.createElement("div");
-    const name = document.createElement("p");
+    const name = document.createElement("h2");
     name.innerText = title;
     const like = document.createElement("p");
 
