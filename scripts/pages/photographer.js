@@ -102,9 +102,13 @@ async function displayMedia(medias, photographerName) {
 const selector = document.querySelector(".selector");
 
 selector.addEventListener("click", (e) => {
-  if (selector.getAttribute("class").includes("open")) {
-    const choicesContainer = document.querySelectorAll("button.selector span");
+  const choicesContainer = document.querySelectorAll("button.selector span");
+  if (
+    selector.getAttribute("class").includes("open") &&
+    e.target.innerText.length < 11
+  ) {
     let selected = e.target.innerText;
+    console.log(e.target.innerText);
 
     ///Clean all span to update selector
     choicesContainer.forEach((choice) => (choice.innerText = ""));
@@ -122,12 +126,22 @@ selector.addEventListener("click", (e) => {
 
     selector.classList.remove("open");
     selector.setAttribute("aria-expanded", "false");
+    selector.setAttribute("tabindex", "3");
+
+    for (let i = 0; i < choicesContainer.length; i++) {
+      choicesContainer[i].setAttribute("tabindex", "-1");
+    }
     ///Update datas and init again like
     displaySortedMedia(medias, sorted);
     updateLike();
   } else {
     selector.classList.add("open");
     selector.setAttribute("aria-expanded", "true");
+    selector.setAttribute("tabindex", "-1");
+    for (let i = 0; i < choicesContainer.length; i++) {
+      choicesContainer[i].setAttribute("tabindex", i + 1);
+    }
+    choicesContainer[0].focus();
   }
 });
 
