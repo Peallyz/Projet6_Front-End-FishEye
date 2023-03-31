@@ -24,13 +24,15 @@
   font-size: 20px;
   font-weight: 400;
 }
-.medias div p:nth-of-type(2) i {
+.medias div p i {
   cursor: pointer;
   margin-left: 5px;
 }
-.medias div p:nth-of-type(1) {
+.medias div h2 {
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 20px;
+  font-weight: 400;
   width: 280px;
   overflow: hidden;
 }
