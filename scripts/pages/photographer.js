@@ -98,41 +98,28 @@ async function displayMedia(medias, photographerName) {
   initLightbox();
 }
 
-// Add an event listener on the selector to update and sort medias
-const selector = document.querySelector(".selector");
-const choicesContainer = document.querySelectorAll("button.selector span");
-
-selector.addEventListener("click", (e) => handleSelector(e));
-
 const handleSelector = (e) => {
-  if (
-    selector.getAttribute("class").includes("open") &&
-    e.target.innerText.length < 11
-  ) {
-    //Isolate selected filter
+  //Isolate selected filter
+  let selected = e.target.innerText;
+  const choices = ["Popularité", "Date", "Titre"].filter(
+    (choice) => choice !== selected
+  );
 
-    let selected = e.target.innerText;
-    const choices = ["Popularité", "Date", "Titre"].filter(
-      (choice) => choice !== selected
-    );
-    cleanUpChoices();
+  cleanUpChoices();
 
-    /// update selector, selected on top and others hiden
+  /// update selector, selected on top and others hiden
+  selector.innerText = selected;
+  choicesContainer[0].innerText = selected;
+  choicesContainer[1].innerText = choices[0];
+  choicesContainer[2].innerText = choices[1];
 
-    choicesContainer[0].innerText = selected;
-    choicesContainer[1].innerText = choices[0];
-    choicesContainer[2].innerText = choices[1];
+  ///Update datas and init again like
+  sorted = selected.toLowerCase();
+  displaySortedMedia(medias, sorted);
+  updateLike();
 
-    sorted = selected.toLowerCase();
-
-    ///Update datas and init again like
-    displaySortedMedia(medias, sorted);
-    updateLike();
-
-    handleAttributeForSelect("close");
-  } else {
-    handleAttributeForSelect("open");
-  }
+  // Close Select
+  selector.classList.remove("open");
 };
 
 ///Clean all span to update selector
@@ -140,27 +127,39 @@ const cleanUpChoices = () => {
   choicesContainer.forEach((choice) => (choice.innerText = ""));
 };
 
-///Handle select and apply right tabindex and ARIA
+//Handle ARIA and TabIndex
 
-const handleAttributeForSelect = (option) => {
+const handleTabIndexForSelector = (option) => {
   if (option === "open") {
-    selector.classList.add("open");
-    selector.setAttribute("aria-expanded", "true");
+    choicesContainer.forEach((choice, index) => {
+      choice.setAttribute("tabindex", index + 2);
+    });
     selector.setAttribute("tabindex", "-1");
-    for (let i = 0; i < choicesContainer.length; i++) {
-      choicesContainer[i].setAttribute("tabindex", i + 2);
-    }
     choicesContainer[0].focus();
   } else if (option === "close") {
-    for (let i = 0; i < choicesContainer.length; i++) {
-      choicesContainer[i].setAttribute("tabindex", "-1");
-    }
-    selector.classList.remove("open");
-    selector.setAttribute("aria-expanded", "false");
+    choicesContainer.forEach((choice) => {
+      choice.setAttribute("tabindex", "-1");
+    });
     selector.setAttribute("tabindex", "3");
+    selector.focus();
   }
 };
 
+// Add an event listener on selector to update and sort medias
+const selector = document.querySelector(".selector");
+const choicesContainer = document.querySelectorAll(".sort ul li a");
+
+selector.addEventListener("click", () => {
+  selector.classList.add("open");
+  handleTabIndexForSelector("open");
+});
+
+choicesContainer.forEach((choice) =>
+  choice.addEventListener("click", (e) => {
+    handleSelector(e);
+    handleTabIndexForSelector("close");
+  })
+);
 //////////////////////////////////////////////////
 
 ////////////////////HANDLE LIKE/////////////////////////
