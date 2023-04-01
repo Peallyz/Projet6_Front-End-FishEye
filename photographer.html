@@ -18,7 +18,7 @@
     <title>Fisheye - photographe</title>
   </head>
   <body>
-    <header class="main_header">
+    <header class="main_header" aria-hidden="false">
       <a href="./index.html" tabindex="1">
         <img
           src="assets/images/logo.png"
@@ -27,7 +27,7 @@
         />
       </a>
     </header>
-    <main id="main">
+    <main id="main" aria-hidden="false">
       <section class="photograph-header">
         <button
           aria-label="Contact Me"
@@ -70,14 +70,14 @@
       <div class="like__container"></div>
     </main>
     <dialog class="lightbox close" aria-label="image closeup view"></dialog>
-    <div class="contact_modal close">
+    <dialog class="contact_modal close" aria-hidden="true">
       <div class="modal">
         <header>
-          <h2 class="modal_title">Contactez-moi</h2>
-          <h2 class="modal_name"></h2>
+          <h1 class="modal_title">Contactez-moi <span class="modal_name"></span></h2>
+          
           <img
             src="assets/icons/close.svg"
-            alt="Close dialog"
+            alt="Close contact form"
             onclick="closeModal()"
           />
         </header>
@@ -104,11 +104,11 @@
               required
             ></textarea>
 
-            <button type="submit" class="contact_button">Envoyer</button>
+            <button type="submit" class="contact_button" aria-label="Send">Envoyer</button>
           </form>
         </main>
       </div>
-    </div>
+    </dialog>
     <script src="./scripts/pages/photographer.js" type="module"></script>
     <script src="./scripts/utils/contactForm.js"></script>
   </body>
