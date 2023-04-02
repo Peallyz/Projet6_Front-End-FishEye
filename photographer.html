@@ -31,9 +31,8 @@
       <section class="photograph-header">
         <button
           aria-label="Contact Me"
-          tabindex="2"
+          tabindex="1"
           class="contact_button"
-          onclick="displayModal()"
         >
           Contactez-moi
         </button>
@@ -45,7 +44,7 @@
           type="button"
           id="selector"
           role="button"
-          tabindex="3"
+          tabindex="1"
           aria-haspopup="listbox"
           aria-expanded="false"
           aria-activedescendant="true"
@@ -56,13 +55,13 @@
         </button>
         <ul>
           <li>
-            <a href="#"> Popularité </a>
+            <a href="#" tabindex="1"> Popularité </a>
           </li>
           <li>
-            <a href="#"> Date </a>
+            <a href="#" tabindex="1"> Date </a>
           </li>
           <li>
-            <a href="#"> Titre </a>
+            <a href="#" tabindex="1"> Titre </a>
           </li>
         </ul>
       </div>
@@ -110,6 +109,6 @@
       </div>
     </dialog>
     <script src="./scripts/pages/photographer.js" type="module"></script>
-    <script src="./scripts/utils/contactForm.js"></script>
+    <script src="./scripts/utils/contactForm.js" type="module"></script>
   </body>
 </html>
