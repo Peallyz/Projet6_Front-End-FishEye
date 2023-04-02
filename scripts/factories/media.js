@@ -35,7 +35,7 @@ const mediaFactory = (data) => {
     );
     heart.setAttribute("data-id", data.id);
     heart.setAttribute("aria-label", "likes");
-    heart.setAttribute("tabindex", mediaIndex * 2);
+    heart.setAttribute("tabindex", "1");
 
     const mediaCardDOM = document.createElement("article");
     const img = document.createElement("img");
@@ -47,7 +47,7 @@ const mediaFactory = (data) => {
     );
     img.setAttribute("data-id", id);
     img.setAttribute("alt", `${title}, closeup view`);
-    img.setAttribute("tabindex", mediaIndex * 2 - 1);
+    img.setAttribute("tabindex", "1");
     img.setAttribute("role", "link");
     const text = document.createElement("div");
     const name = document.createElement("h2");
