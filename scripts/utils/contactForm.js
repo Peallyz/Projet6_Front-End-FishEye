@@ -11,6 +11,8 @@ const displayModal = () => {
   const prenomInput = document.querySelector("#prenom");
   prenomInput.focus();
   handleBackgroundInteractivity(true);
+
+  window.addEventListener("keydown", (e) => e.key === "Escape" && closeModal());
 };
 
 const closeModal = () => {
