@@ -1,5 +1,6 @@
 import { photographerFactory } from "../factories/photographer.js";
 import { mediaFactory } from "../factories/media.js";
+import { closeModal, displayModal, sendForm } from "../utils/contactForm.js";
 
 //Retrieve current URL id
 
@@ -132,7 +133,7 @@ const cleanUpChoices = () => {
 const handleTabIndexForSelector = (option) => {
   if (option === "open") {
     choicesContainer.forEach((choice, index) => {
-      choice.setAttribute("tabindex", index + 2);
+      choice.setAttribute("tabindex", 1);
     });
     selector.setAttribute("tabindex", "-1");
     choicesContainer[0].focus();
@@ -140,7 +141,7 @@ const handleTabIndexForSelector = (option) => {
     choicesContainer.forEach((choice) => {
       choice.setAttribute("tabindex", "-1");
     });
-    selector.setAttribute("tabindex", "3");
+    selector.setAttribute("tabindex", "1");
     selector.focus();
   }
 };
@@ -283,21 +284,6 @@ const movingMedia = (direction, allMedias, currentMedias) => {
 
 /////////////////////////////////////////////
 
-/////////////////////SEND FORM////////////////////////
-
-const form = document.querySelector(".modal form");
-form.addEventListener("submit", (e) => sendForm(e));
-
-const sendForm = (e) => {
-  e.preventDefault();
-  const formData = new FormData(form);
-  for (let [key, value] of formData.entries()) {
-    console.log(`${key}: ${value}`);
-  }
-  const modal = document.querySelector(".contact_modal");
-  modal.classList.add("close");
-};
-
 ///////////////////INITIALIZATION//////////////////////////
 
 async function init() {
@@ -338,6 +324,25 @@ const updateLike = () => {
 
 updateLike();
 
-////////////////////Listner using keyboard/////////////////////////
+////////////////////Handle form/////////////////////////
+
+//Open Modal on click
+
+const formOpenerBtn = document.querySelector(
+  ".photograph-header .contact_button"
+);
+formOpenerBtn.addEventListener("click", displayModal);
+
+//Close modal on click on cross
+
+const formClosingBtn = document.querySelector(".contact_modal header img");
+formClosingBtn.addEventListener("click", closeModal);
+
+//Submit form data
+
+const formSubmitBtn = document.querySelector(
+  ".contact_modal main .contact_button"
+);
+formSubmitBtn.addEventListener("click", (e) => sendForm(e));
 
 /////////////////////////////////////////////
