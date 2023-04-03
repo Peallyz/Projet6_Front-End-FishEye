@@ -10,7 +10,7 @@ const photographerFactory = (data) => {
 
     const link = document.createElement("a");
     link.setAttribute("href", `photographer.html?id=${id}`);
-    link.setAttribute("alt", name);
+    link.setAttribute("aria-label", name);
     const img = document.createElement("img");
     img.setAttribute("src", picture);
     img.setAttribute("alt", "");
