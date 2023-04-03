@@ -25,7 +25,6 @@
 }
 
 .modal header {
-  justify-content: baseline;
   align-items: baseline;
   flex-direction: column;
   width: 100%;
