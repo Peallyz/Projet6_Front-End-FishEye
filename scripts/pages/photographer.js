@@ -11,6 +11,7 @@ let sorted = "popularité";
 async function getPhotographerData() {
   // fetch photographers' data
 
+    // Add key HasLike init with false to handle the user "Add and remove like"
   const getMedia = (medias) => {
     let mediasArr = medias.filter((media) => media.photographerId === id);
     mediasArr.forEach((media) => (media.hasLike = false));
@@ -21,6 +22,7 @@ async function getPhotographerData() {
     return photographerData;
   };
 
+    //Catch all data and dispatch them into an array sort by photographers and medias
   const data = await fetch("./data/photographers.json")
     .then((response) => response.json())
     .then((data) => [
@@ -65,7 +67,7 @@ const displayLikeCountAndPrice = async (photographerDatas) => {
 
 //////////////////////SORT AND DISPLAY MEDIA////////////////////////////
 
-// Sort media
+// Sort media by data, popularity or title
 
 async function displaySortedMedia(photographerData, value = "popularité") {
   let sortedMedia;
@@ -128,12 +130,12 @@ const cleanUpChoices = () => {
   choicesContainer.forEach((choice) => (choice.innerText = ""));
 };
 
-//Handle ARIA and TabIndex
+//Handle TabIndex for selector and select list on open/close
 
 const handleTabIndexForSelector = (option) => {
   if (option === "open") {
-    choicesContainer.forEach((choice, index) => {
-      choice.setAttribute("tabindex", 1);
+    choicesContainer.forEach((choice) => {
+      choice.setAttribute("tabindex", "1");
     });
     selector.setAttribute("tabindex", "-1");
     choicesContainer[0].focus();
@@ -203,7 +205,7 @@ const checkTargetLike = (heart) => {
 
 ///////////////////EVENT LISTENER ON MODAL//////////////////////////
 
-const updateModalWithName = (data) => {
+const updateFormWithName = (data) => {
   const modalTitle = document.querySelector(".modal_name");
   modalTitle.innerText = data[0][0].name;
 };
@@ -293,7 +295,7 @@ async function init() {
   displayPhotographerData(photographerData);
   displayLikeCountAndPrice(photographerData);
   displaySortedMedia(photographerData, sorted);
-  updateModalWithName(photographerData);
+  updateFormWithName(photographerData);
   initLightbox();
 
   return photographerData;
