@@ -93,9 +93,9 @@ async function displaySortedMedia(photographerData, value = "popularité") {
 async function displayMedia(medias, photographerName) {
   const mediaSection = document.querySelector(".medias");
   mediaSection.innerHTML = "";
-  medias.map((media, index) => {
+  medias.map((media) => {
     const mediaModel = mediaFactory(media, photographerName);
-    const mediaCardDOM = mediaModel.getMediaCardDOM(index);
+    const mediaCardDOM = mediaModel.getMediaCardDOM();
     mediaSection.appendChild(mediaCardDOM);
   });
   initLightbox();
