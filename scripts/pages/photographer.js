@@ -213,7 +213,7 @@ const updateFormWithName = (data) => {
 
 /////////////////////HANDLE LIGHTBOX////////////////////////
 
-///Add Event Listener on all img
+///Add Event Listener on all img to launch Lightbox
 
 const initLightbox = () => {
   const articles = document.querySelectorAll("article img");
