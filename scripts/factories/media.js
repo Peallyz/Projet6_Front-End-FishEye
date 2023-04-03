@@ -12,7 +12,7 @@ const mediaFactory = (data) => {
 
   ///Return a DOM Element for each media with img, title, like
 
-  function getMediaCardDOM(index) {
+  function getMediaCardDOM() {
     let {
       id,
       photographerId,
@@ -20,14 +20,10 @@ const mediaFactory = (data) => {
       image,
       video,
       likes,
-      date,
-      price,
       hasLike,
     } = data;
 
-    // starting index at 4 cause of header and photographer data
-    let mediaIndex = index + 4;
-
+    //Create like button
     const heart = document.createElement("i");
     heart.setAttribute(
       "class",
@@ -117,7 +113,7 @@ const mediaFactory = (data) => {
 
     //////////////////////////
 
-    ///Create every DOM Elements and apprend to this main to return it
+    ///Create every DOM Elements and append to this main to return it
 
     const imgs = document.createElement("div");
     imgs.setAttribute("class", "medias__container");
