@@ -33,7 +33,7 @@
   cursor: pointer;
 }
 .sort .selector:focus {
-  outline: 2px solid black;
+  outline: 2px solid #d3573c;
 }
 .selector::before {
   content: "";
