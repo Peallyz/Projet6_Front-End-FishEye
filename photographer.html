@@ -29,11 +29,7 @@
     </header>
     <main id="main" aria-hidden="false">
       <section class="photograph-header">
-        <button
-          aria-label="Contact Me"
-          tabindex="1"
-          class="contact_button"
-        >
+        <button aria-label="Contact Me" tabindex="1" class="contact_button">
           Contactez-moi
         </button>
       </section>
@@ -41,7 +37,6 @@
         <label for="selector">Trier par</label>
         <button
           class="selector"
-          type="button"
           id="selector"
           role="button"
           tabindex="1"
@@ -72,13 +67,11 @@
     <dialog class="contact_modal close" aria-hidden="true">
       <div class="modal">
         <header>
-          <h1 class="modal_title">Contactez-moi <span class="modal_name"></span></h1>
-          
-          <img
-            src="assets/icons/close.svg"
-            alt="Close contact form"
-            onclick="closeModal()"
-          />
+          <h1 class="modal_title">
+            Contactez-moi <span class="modal_name"></span>
+          </h1>
+
+          <img src="assets/icons/close.svg" alt="Close contact form" />
         </header>
         <main>
           <form method="get" action="photographer.html">
@@ -103,7 +96,9 @@
               required
             ></textarea>
 
-            <button type="submit" class="contact_button" aria-label="Send">Envoyer</button>
+            <button type="submit" class="contact_button" aria-label="Send">
+              Envoyer
+            </button>
           </form>
         </main>
       </div>
