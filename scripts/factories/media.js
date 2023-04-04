@@ -13,15 +13,7 @@ const mediaFactory = (data) => {
   ///Return a DOM Element for each media with img, title, like
 
   function getMediaCardDOM() {
-    let {
-      id,
-      photographerId,
-      title,
-      image,
-      video,
-      likes,
-      hasLike,
-    } = data;
+    let { id, photographerId, title, image, video, likes, hasLike } = data;
 
     //Create like button
     const heart = document.createElement("i");
@@ -118,9 +110,12 @@ const mediaFactory = (data) => {
     const imgs = document.createElement("div");
     imgs.setAttribute("class", "medias__container");
 
-    imgsToDisplay.forEach((media) => {
+    imgsToDisplay.forEach((media, index) => {
       const container = document.createElement("div");
       container.setAttribute("class", "container");
+      if (index === 0 || index === 2) {
+        container.setAttribute("aria-hidden", "true");
+      }
       const dataContainer = document.createElement("div");
       dataContainer.setAttribute("class", "media__container");
       const img = document.createElement(media.image ? "img" : "video");
