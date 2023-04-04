@@ -17,7 +17,7 @@
   flex-direction: column;
   align-items: center;
 }
-a:focus {
+*:focus {
   outline: 2px solid #d3573c;
   border-radius: 5px;
 }
