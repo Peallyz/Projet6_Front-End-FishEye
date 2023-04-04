@@ -197,6 +197,10 @@ const mediaFactory = (data) => {
     header.classList.remove("close");
     main.classList.remove("close");
     lightboxContainer.classList.add("close");
+
+    //Handle Aria-Label
+    header.setAttribute("aria-hidden", "false");
+    main.setAttribute("aria-hidden", "false");
   }
 
   //////////////////////////

@@ -11,7 +11,7 @@ let sorted = "popularité";
 async function getPhotographerData() {
   // fetch photographers' data
 
-    // Add key HasLike init with false to handle the user "Add and remove like"
+  // Add key HasLike init with false to handle the user "Add and remove like"
   const getMedia = (medias) => {
     let mediasArr = medias.filter((media) => media.photographerId === id);
     mediasArr.forEach((media) => (media.hasLike = false));
@@ -22,7 +22,7 @@ async function getPhotographerData() {
     return photographerData;
   };
 
-    //Catch all data and dispatch them into an array sort by photographers and medias
+  //Catch all data and dispatch them into an array sort by photographers and medias
   const data = await fetch("./data/photographers.json")
     .then((response) => response.json())
     .then((data) => [
@@ -240,6 +240,12 @@ const displayLightbox = (target, medias) => {
     medias[1]
   );
   lightbox.appendChild(lightboxContainerDOM[0]);
+
+  //Handle Aria-Label
+  const header = document.querySelector(".main_header");
+  header.setAttribute("aria-hidden", "true");
+  const main = document.querySelector("#main");
+  main.setAttribute("aria-hidden", "true");
 
   // Handle movingMedia using Keyboard Arrow
 
