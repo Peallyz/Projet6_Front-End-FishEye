@@ -241,11 +241,16 @@ const displayLightbox = (target, medias) => {
   );
   lightbox.appendChild(lightboxContainerDOM[0]);
 
-  //Handle Aria-Label
-  const header = document.querySelector(".main_header");
-  header.setAttribute("aria-hidden", "true");
-  const main = document.querySelector("#main");
-  main.setAttribute("aria-hidden", "true");
+  // Handle movingMedia on click
+  const chevronRight = document.querySelector(".fa-chevron-right");
+  chevronRight.addEventListener("click", () =>
+    movingMedia("right", medias, lightboxContainerDOM[1])
+  );
+
+  const chevronLeft = document.querySelector(".fa-chevron-left");
+  chevronLeft.addEventListener("click", () =>
+    movingMedia("left", medias, lightboxContainerDOM[1])
+  );
 
   // Handle movingMedia using Keyboard Arrow
 
@@ -259,22 +264,9 @@ const displayLightbox = (target, medias) => {
       movingMedia("left", medias, lightboxContainerDOM[1]);
     }
   });
-
-  // Handle movingMedia on click
-
-  const chevronRight = document.querySelector(".fa-chevron-right");
-  chevronRight.addEventListener("click", () =>
-    movingMedia("right", medias, lightboxContainerDOM[1])
-  );
-
-  const chevronLeft = document.querySelector(".fa-chevron-left");
-  chevronLeft.addEventListener("click", () =>
-    movingMedia("left", medias, lightboxContainerDOM[1])
-  );
 };
 
 ///Add class to move media according the chevron clicked and update lightbox
-
 const movingMedia = (direction, allMedias, currentMedias) => {
   const imgs = document.querySelector(".medias__container");
   if (direction === "left") {
