@@ -103,8 +103,6 @@ const mediaFactory = (data) => {
     );
     cross.addEventListener("click", () => closeLightbox());
 
-    //////////////////////////
-
     ///Create every DOM Elements and append to this main to return it
 
     const imgs = document.createElement("div");
@@ -127,6 +125,7 @@ const mediaFactory = (data) => {
           ? `./assets/photographers/${media.photographerId}/${media.image}`
           : `./assets/photographers/${media.photographerId}/${media.video}`
       );
+
       img.setAttribute("alt", media.title);
       img.setAttribute("class", "lightbox__media");
       if (media.video) {
@@ -184,6 +183,10 @@ const mediaFactory = (data) => {
     header.classList.add("close");
     main.classList.add("close");
     lightboxContainer.classList.remove("close");
+
+    //Handle Aria-Label
+    header.setAttribute("aria-hidden", "true");
+    main.setAttribute("aria-hidden", "true");
   }
 
   //////////////////////////
