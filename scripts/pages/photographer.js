@@ -154,12 +154,14 @@ const choicesContainer = document.querySelectorAll(".sort ul li a");
 
 selector.addEventListener("click", () => {
   selector.classList.add("open");
+  selector.setAttribute("aria-expanded", "true");
   handleTabIndexForSelector("open");
 });
 
 choicesContainer.forEach((choice) =>
   choice.addEventListener("click", (e) => {
     handleSelector(e);
+    selector.setAttribute("aria-expanded", "false");
     handleTabIndexForSelector("close");
   })
 );
