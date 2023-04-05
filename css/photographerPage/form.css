@@ -54,7 +54,7 @@ form {
   align-items: flex-start;
 }
 
-.modal main {
+.modal .modal__main {
   width: 100%;
 }
 
