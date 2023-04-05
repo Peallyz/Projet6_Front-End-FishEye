@@ -340,9 +340,7 @@ formClosingBtn.addEventListener("click", closeModal);
 
 //Submit form data
 
-const formSubmitBtn = document.querySelector(
-  ".contact_modal main .contact_button"
-);
-formSubmitBtn.addEventListener("click", (e) => sendForm(e));
+const formSubmitBtn = document.querySelector(".contact_modal main form");
+formSubmitBtn.addEventListener("submit", (e) => sendForm(e));
 
 /////////////////////////////////////////////
