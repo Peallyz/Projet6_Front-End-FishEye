@@ -195,13 +195,11 @@ const checkTargetLike = (heart) => {
 
 /////////////////////////////////////////////
 
-///////////////////EVENT LISTENER ON MODAL//////////////////////////
-
 const updateFormWithName = (data) => {
   const modalTitle = document.querySelector(".modal_name");
   modalTitle.innerText = data[0][0].name;
 };
-/////////////////////////////////////////////
+
 
 /////////////////////HANDLE LIGHTBOX////////////////////////
 
