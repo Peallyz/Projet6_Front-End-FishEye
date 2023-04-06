@@ -1,5 +1,3 @@
-// Add an event listener on each heart to handle the toggle like
-
 import {
   displayLightbox,
   handleLike,
@@ -7,7 +5,12 @@ import {
   handleTabIndexForSelector,
   movingMedia,
 } from "../pages/photographer.js";
+
 import { closeModal, displayModal, sendForm } from "./contactForm.js";
+
+////////////////////Handle like/////////////////////////
+
+// Add an event listener on each heart to handle the toggle like
 
 const updateLike = () => {
   const mediaCardsHeart = document.querySelectorAll("article div p i");
@@ -26,6 +29,8 @@ const updateLike = () => {
     })
   );
 };
+
+/////////////////////////////////////////////
 
 ////////////////////Handle form/////////////////////////
 
@@ -49,7 +54,7 @@ const initFormListener = () => {
 };
 /////////////////////////////////////////////
 
-/////////////////////////////////////////////
+/////////////////////Handle selector////////////////////////
 const initSelectListener = (choicesContainer) => {
   // Add an event listener on selector to update and sort medias
   const selector = document.querySelector(".selector");
