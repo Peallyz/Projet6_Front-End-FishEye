@@ -1,12 +1,19 @@
 import { photographerFactory } from "../factories/photographer.js";
 import { mediaFactory } from "../factories/media.js";
-import { closeModal, displayModal, sendForm } from "../utils/contactForm.js";
+import {
+  initFormListener,
+  initLightbox,
+  initLightboxChevronListener,
+  initSelectListener,
+  updateLike,
+} from "../utils/eventListener.js";
 
 //Retrieve current URL id
 
 const url = new URL(window.location);
 const id = parseInt(url.searchParams.get("id"));
 let sorted = "popularité";
+const choicesContainer = document.querySelectorAll(".sort ul li a");
 
 async function getPhotographerData() {
   // fetch photographers' data
@@ -148,30 +155,13 @@ const handleTabIndexForSelector = (option) => {
   }
 };
 
-// Add an event listener on selector to update and sort medias
-const selector = document.querySelector(".selector");
-const choicesContainer = document.querySelectorAll(".sort ul li a");
-
-selector.addEventListener("click", () => {
-  selector.classList.add("open");
-  selector.setAttribute("aria-expanded", "true");
-  handleTabIndexForSelector("open");
-});
-
-choicesContainer.forEach((choice) =>
-  choice.addEventListener("click", (e) => {
-    handleSelector(e);
-    selector.setAttribute("aria-expanded", "false");
-    handleTabIndexForSelector("close");
-  })
-);
 //////////////////////////////////////////////////
 
 ////////////////////HANDLE LIKE/////////////////////////
 
 //If media has like remove it, neither add a like
 
-const handleLike = (heart, medias) => {
+const handleLike = (heart) => {
   const target = medias[1].filter(
     (media) => media.id === checkTargetLike(heart)
   )[0];
@@ -215,24 +205,9 @@ const updateFormWithName = (data) => {
 
 /////////////////////HANDLE LIGHTBOX////////////////////////
 
-///Add Event Listener on all img to launch Lightbox
-
-const initLightbox = () => {
-  const articles = document.querySelectorAll("article img");
-  articles.forEach((article) => {
-    article.addEventListener("click", (e) => displayLightbox(e.target, medias));
-  });
-  articles.forEach((article) => {
-    article.addEventListener(
-      "keydown",
-      (e) => e.key === "Enter" && displayLightbox(e.target, medias)
-    );
-  });
-};
-
 ///display media according the current media clicked initally
 ///or received after moving
-const displayLightbox = (target, medias) => {
+const displayLightbox = (target) => {
   const id =
     typeof target == "number" ? target : target.getAttribute("data-id");
   const lightbox = document.querySelector(".lightbox");
@@ -243,29 +218,7 @@ const displayLightbox = (target, medias) => {
   );
   lightbox.appendChild(lightboxContainerDOM[0]);
 
-  // Handle movingMedia on click
-  const chevronRight = document.querySelector(".fa-chevron-right");
-  chevronRight.addEventListener("click", () =>
-    movingMedia("right", medias, lightboxContainerDOM[1])
-  );
-
-  const chevronLeft = document.querySelector(".fa-chevron-left");
-  chevronLeft.addEventListener("click", () =>
-    movingMedia("left", medias, lightboxContainerDOM[1])
-  );
-
-  // Handle movingMedia using Keyboard Arrow
-
-  const mainMedia = document.querySelectorAll(".media__container")[1];
-  mainMedia.setAttribute("tabindex", "1");
-  mainMedia.focus();
-  mainMedia.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowRight") {
-      movingMedia("right", medias, lightboxContainerDOM[1]);
-    } else if (e.key === "ArrowLeft") {
-      movingMedia("left", medias, lightboxContainerDOM[1]);
-    }
-  });
+  initLightboxChevronListener(medias, lightboxContainerDOM[1]);
 };
 
 ///Add class to move media according the chevron clicked and update lightbox
@@ -297,6 +250,9 @@ async function init() {
   displaySortedMedia(photographerData, sorted);
   updateFormWithName(photographerData);
   initLightbox();
+  updateLike();
+  initFormListener();
+  initSelectListener(choicesContainer);
 
   return photographerData;
 }
@@ -304,45 +260,10 @@ async function init() {
 // Fetch data and display all data
 const medias = await init();
 
-// Add an event listener on each heart to handle the toggle like
-
-const updateLike = () => {
-  const mediaCardsHeart = document.querySelectorAll("article div p i");
-  mediaCardsHeart.forEach((heart) =>
-    heart.addEventListener("click", (e) => {
-      handleLike(e.target, medias);
-    })
-  );
-
-  // If user click Enter, add like on photo
-  mediaCardsHeart.forEach((heart) =>
-    heart.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        handleLike(e.target, medias);
-      }
-    })
-  );
+export {
+  handleLike,
+  handleSelector,
+  handleTabIndexForSelector,
+  displayLightbox,
+  movingMedia,
 };
-
-updateLike();
-
-////////////////////Handle form/////////////////////////
-
-//Open Modal on click
-
-const formOpenerBtn = document.querySelector(
-  ".photograph-header .contact_button"
-);
-formOpenerBtn.addEventListener("click", displayModal);
-
-//Close modal on click on cross
-
-const formClosingBtn = document.querySelector(".contact_modal header img");
-formClosingBtn.addEventListener("click", closeModal);
-
-//Submit form data
-
-const formSubmitBtn = document.querySelector(".contact_modal form");
-formSubmitBtn.addEventListener("submit", (e) => sendForm(e));
-
-/////////////////////////////////////////////
