@@ -18,7 +18,6 @@
   align-items: center;
 }
 
-/* Add dotted */
 *:focus {
   outline: 2px solid #d3573c;
   border-radius: 5px;
